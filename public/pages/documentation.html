@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Nexus</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --docs-sidebar: #0f172a;
+            --docs-content: #020617;
+            --docs-border: rgba(255, 255, 255, 0.06);
+        }
+
+        body {
+            background-color: var(--docs-content);
+            color: var(--text-main);
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Documentation Layout */
+        .docs-page-container {
+            margin-top: 80px;
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Docs Sidebar */
+        .docs-sidebar {
+            width: 300px;
+            background: var(--docs-sidebar);
+            border-right: 1px solid var(--docs-border);
+            padding: 2.5rem 2rem;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+
+        .docs-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .docs-sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .docs-sidebar {
+                display: none;
+            }
+        }
+
+        .docs-nav-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .docs-nav-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        .docs-nav-link {
+            display: block;
+            padding: 0.6rem 0;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border-left: 2px solid transparent;
+            padding-left: 1.25rem;
+            margin-left: -1rem;
+        }
+
+        .docs-nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .docs-nav-link.active {
+            color: var(--primary-light);
+            border-left-color: var(--primary);
+            background: rgba(99, 102, 241, 0.08);
+            font-weight: 600;
+        }
+
+        /* Docs Content */
+        .docs-main {
+            flex: 1;
+            padding: 5rem 6rem;
+            max-width: 1000px;
+        }
+
+        @media (max-width: 768px) {
+            .docs-main {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        .docs-article h1 {
+            font-size: 3.5rem;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .docs-article .lead {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 5rem;
+            line-height: 1.6;
+            max-width: 750px;
+        }
+
+        .docs-section {
+            margin-bottom: 6rem;
+            scroll-margin-top: 120px;
+            /* Offset for sticky header */
+        }
+
+        .docs-section h2 {
+            font-size: 2.25rem;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--docs-border);
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+
+        .docs-section h3 {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            color: #fff;
+        }
+
+        .docs-section p {
+            line-height: 1.8;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .code-block {
+            background: #0f172a;
+            border: 1px solid var(--docs-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            overflow-x: auto;
+        }
+
+        .code-header {
+            position: absolute;
+            top: 0;
+            right: 2rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            padding: 0.75rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .alert-info {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .alert-info i {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--docs-border);
+            border-radius: 12px;
+        }
+
+        .feature-item h4 {
+            color: #fff;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <div class="docs-page-container">
+            <!-- Docs Sidebar -->
+            <aside class="docs-sidebar">
+                <div class="docs-nav-group">
+                    <span class="docs-nav-label">Getting Started</span>
+                    <a href="#intro" class="docs-nav-link active">Introduction</a>
+                    <a href="#quickstart" class="docs-nav-link">Quickstart Guide</a>
+                    <a href="#architecture" class="docs-nav-link">Core Architecture</a>
+                </div>
+                <div class="docs-nav-group">
+                    <span class="docs-nav-label">Infrastructure</span>
+                    <a href="#edge" class="docs-nav-link">Edge Computing</a>
+                    <a href="#cdn" class="docs-nav-link">Global CDN</a>
+                    <a href="#assets" class="docs-nav-link">Static Assets</a>
+                </div>
+                <div class="docs-nav-group">
+                    <span class="docs-nav-label">Security</span>
+                    <a href="#auth" class="docs-nav-link">Authentication</a>
+                    <a href="#rbac" class="docs-nav-link">RBAC Policies</a>
+                    <a href="#compliance" class="docs-nav-link">Compliance</a>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="docs-main">
+                <article class="docs-article">
+                    <section id="intro" class="docs-section">
+                        <h1>Introduction to Nexus</h1>
+                        <p class="lead">Everything you need to build, deploy, and scale world-class applications on the
+                            Nexus Operating System.</p>
+
+                        <h2>System Overview</h2>
+                        <p>
+                            Nexus is a unified platform designed for high-growth engineering teams. By unifying
+                            deployment pipelines, infrastructure management, and security protocols into a single
+                            control plane, we enable teams to move faster with higher confidence.
+                        </p>
+                        <p>
+                            Traditional infrastructure requires juggling multiple cloud providers, CDN services, and
+                            security tools. Nexus abstracts this complexity into a single "Operating System" for your
+                            cloud resources.
+                        </p>
+                        <div class="alert-info">
+                            <i data-lucide="info"></i>
+                            <div>
+                                <strong>Enterprise Note:</strong> All data is encrypted at rest using AES-256 and in
+                                transit via TLS 1.3 by default.
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="quickstart" class="docs-section">
+                        <h2>Quickstart Guide</h2>
+                        <p>Get your first application live on Nexus in less than 2 minutes using our CLI tools.</p>
+
+                        <h3>1. Install the CLI</h3>
+                        <div class="code-block">
+                            <div class="code-header">Terminal</div>
+                            <code>$ npm install -g @nexus/cli</code>
+                        </div>
+
+                        <h3>2. Authenticate</h3>
+                        <div class="code-block">
+                            <div class="code-header">Terminal</div>
+                            <code>$ nexus login</code>
+                        </div>
+
+                        <h3>3. Initialize & Deploy</h3>
+                        <p>Run the init command inside your project directory. Nexus will automatically detect your
+                            framework (React, Next.js, Vue, etc.) and optimize the build.</p>
+                        <div class="code-block">
+                            <div class="code-header">Terminal</div>
+                            <code>$ nexus init</code><br>
+                            <code>$ nexus deploy</code>
+                        </div>
+                    </section>
+
+                    <section id="architecture" class="docs-section">
+                        <h2>Core Architecture</h2>
+                        <p>The Nexus architecture is built on three main pillars that ensure maximum velocity and
+                            uptime.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <h4><i data-lucide="cpu" style="width:18px;"></i> Control Plane</h4>
+                                <p style="font-size: 0.9rem;">The central brain that manages your deployments,
+                                    configurations, and team permissions.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4><i data-lucide="share-2" style="width:18px;"></i> Data Plane</h4>
+                                <p style="font-size: 0.9rem;">300+ edge nodes globally that serve your content and
+                                    execute serverless logic.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="edge" class="docs-section">
+                        <h2>Edge Computing</h2>
+                        <p>Run your logic closer to your users. Nexus Edge Functions allow you to execute middleware,
+                            API routes, and dynamic content generation at the edge provider nearest to the request.</p>
+                        <div class="code-block">
+                            <div class="code-header">edge-function.js</div>
+                            <code>export default async function handler(req) {</code><br>
+                            <code>  return new Response("Hello from the Edge!");</code><br>
+                            <code>}</code>
+                        </div>
+                    </section>
+
+                    <section id="cdn" class="docs-section">
+                        <h2>Global CDN</h2>
+                        <p>Our Content Delivery Network is optimized for the modern web. With smart caching and
+                            automatic image optimization, your assets load instantly regardless of user location.</p>
+                        <ul style="color: #cbd5e1; line-height: 2;">
+                            <li>300+ Points of Presence (PoPs)</li>
+                            <li>Brotli/Gzip Compression</li>
+                            <li>Automatic WebP conversion</li>
+                        </ul>
+                    </section>
+
+                    <section id="assets" class="docs-section">
+                        <h2>Static Assets</h2>
+                        <p>Nexus handles static asset hosting with atomic deployments. Every deployment is permanent,
+                            allowing for instant rollbacks and zero-downtime updates.</p>
+                    </section>
+
+                    <section id="auth" class="docs-section">
+                        <h2>Authentication</h2>
+                        <p>Secure your applications with built-in Auth providers. We support OIDC, SAML, and traditional
+                            email/password flows out of the box.</p>
+                    </section>
+
+                    <section id="rbac" class="docs-section">
+                        <h2>RBAC Policies</h2>
+                        <p>Manage granular permissions for your team. Define custom roles and assign them to members
+                            based on project-level or organization-level needs.</p>
+                    </section>
+
+                    <section id="compliance" class="docs-section">
+                        <h2>Compliance</h2>
+                        <p>Nexus is built for regulated industries. We provide the guardrails needed for SOC2, HIPAA,
+                            and GDPR compliance from day one.</p>
+                    </section>
+                </article>
+            </main>
+        </div>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="../../src/js/main.js"></script>
+    <script src="../../src/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            const links = document.querySelectorAll('.docs-nav-link');
+            const sections = document.querySelectorAll('.docs-section');
+
+            // 1. Smooth Scroll for Sidebar Links
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+
+                        // Update URL hash without jumping
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // 2. Active State Highlighting on Scroll
+            window.addEventListener('scroll', () => {
+                let current = "";
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

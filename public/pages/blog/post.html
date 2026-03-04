@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post | Nexus</title>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../../src/css/style.css">
+    <link rel="stylesheet" href="../../../src/css/pages/blog.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Global overflow guard */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Post container: clamp max-width so it never overflows on mobile */
+        @media (max-width: 768px) {
+            .container[style*="max-width: 800px"] {
+                max-width: 100% !important;
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            /* "Back to Blog" link: reduce bottom margin on mobile */
+            a[style*="margin-bottom: 3rem"] {
+                margin-bottom: 1.75rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container[style*="max-width: 800px"] {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container[style*="max-width: 800px"] {
+                padding-left: 0.875rem !important;
+                padding-right: 0.875rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../../src/js/main.js"></script>
+        <script src="../../../src/js/data.js"></script>
+        <script src="../../../src/js/blog.js"></script>
+        <script src="../../../src/js/auth.js"></script>
+
+        <main class="section-padding">
+            <div class="container" style="max-width: 800px;">
+                <a href="index.html"
+                    style="color: var(--primary); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 3rem; text-decoration: none; font-weight: 500;">
+                    <i data-lucide="chevron-left" style="width: 18px;"></i> Back to Blog
+                </a>
+
+                <div id="blogPostContent">
+                    <!-- Loading State -->
+                    <div style="text-align: center; padding: 4rem;">
+                        <div class="spinner border-primary"></div>
+                        <p class="text-muted" style="margin-top: 1rem;">Loading post...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            loadPost();
+        });
+
+        function loadPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+            const container = document.getElementById('blogPostContent');
+
+            if (!postId) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem;">
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Post Not Found</h2>
+                        <p class="text-muted">The article you are looking for does not exist.</p>
+                        <a href="index.html" class="btn-primary" style="margin-top: 2rem;">Browse All Articles</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Ensure DataService is available
+            if (typeof DataService === 'undefined') {
+                console.error("DataService not loaded");
+                return;
+            }
+
+            const posts = DataService.getBlogPosts();
+            // Try to find by ID (string or number conversion) or by legacy title slug
+            const post = posts.find(p => p.id == postId || (p.title && p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === postId));
+
+            if (!post) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem;">
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Post Not Found</h2>
+                        <p class="text-muted">The article you are looking for does not exist or has been removed.</p>
+                        <a href="index.html" class="btn-primary" style="margin-top: 2rem;">Browse All Articles</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Format Date
+            const dateStr = post.date || new Date(post.created).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            // Render Content
+            container.innerHTML = `
+                <span class="category-tag" style="margin-bottom: 1rem; display: inline-block;">${post.category || 'General'}</span>
+                <h1 style="font-size: 3rem; line-height: 1.2; margin: 1rem 0 2rem;">${post.title}</h1>
+
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff;">
+                        ${post.author ? post.author.charAt(0) : 'N'}
+                    </div>
+                    <div>
+                        <p style="font-weight: 600; margin-bottom: 0.25rem;">${post.author || 'Nexus Team'}</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">${dateStr} &bull; ${post.readTime || '5 min'} read</p>
+                    </div>
+                </div>
+
+                <div class="blog-article-content" style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main);">
+                    ${post.image ? `<img src="${post.image}" alt="${post.title}" style="width: 100%; border-radius: 20px; margin-bottom: 3rem; box-shadow: var(--shadow-lg);">` : ''}
+                    
+                    ${formatContent(post.content)}
+                </div>
+            `;
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function formatContent(content) {
+            // Simple formatter to handle newlines as paragraphs if not HTML
+            if (content.includes('<p>')) return content;
+            return content.split('\n\n').map(p => `<p style="margin-bottom: 1.5rem;">${p}</p>`).join('');
+        }
+    </script>
+</body>
+
+</html>

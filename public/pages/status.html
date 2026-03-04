@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Status | Nexus</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .status-header {
+            padding: 8rem 0 4rem;
+            background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent);
+            text-align: center;
+        }
+
+        .status-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+
+<body class="marketing-layout">
+    <div id="main-header"></div>
+    <script src="../../src/js/main.js"></script>
+
+    <main>
+        <div class="status-header">
+            <div class="container">
+                <div class="footer-status" style="display: inline-flex; margin-bottom: 2rem;">
+                    <span class="status-dot"></span>
+                    <span>All Systems Operational</span>
+                </div>
+                <h1 class="hero-headline">System <span style="color: var(--primary);">Status</span></h1>
+                <p style="color: var(--text-muted);">Real-time performance and uptime monitoring.</p>
+            </div>
+        </div>
+
+        <div class="container" style="max-width: 800px; margin-top: -2rem; position: relative; z-index: 10;">
+            <div class="status-card">
+                <div class="status-item">
+                    <div class="status-label">
+                        <i data-lucide="globe" style="color: var(--primary);"></i>
+                        <span>Marketing Website</span>
+                    </div>
+                    <span class="status-badge badge-success">Operational</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">
+                        <i data-lucide="layout" style="color: var(--primary);"></i>
+                        <span>User Dashboard</span>
+                    </div>
+                    <span class="status-badge badge-success">Operational</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">
+                        <i data-lucide="database" style="color: var(--primary);"></i>
+                        <span>API & Database</span>
+                    </div>
+                    <span class="status-badge badge-success">Operational</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">
+                        <i data-lucide="shield-check" style="color: var(--primary);"></i>
+                        <span>Authentication Service</span>
+                    </div>
+                    <span class="status-badge badge-success">Operational</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                Looking for incident history? Check our <a href="#" style="color: var(--primary-light);">Incident
+                    reports</a>.
+            </div>
+        </div>
+    </main>
+
+    <div id="main-footer"></div>
+
+    <script src="../../src/js/auth.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

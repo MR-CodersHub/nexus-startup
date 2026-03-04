@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Details | Nexus</title>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../../src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* =============================================
+           SERVICES/DETAILS.HTML — RESPONSIVE FIXES
+           Tablet: ≤1024px  |  Mobile: ≤768px / ≤480px / ≤360px
+           Desktop (>1024px): UNTOUCHED
+           ============================================= */
+
+        /* Global overflow guard */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* Responsive images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ── Tablet: ≤ 1024px ──────────────────────── */
+        @media (max-width: 1024px) {
+
+            /* --- Details hero: navbar-aware padding-top ---
+               Navbar is fixed at 80px. Hero section-padding gets
+               compressed to 5rem at tablet — only 20px clearance.
+               Force generous offset so heading stays fully visible. */
+            .details-hero {
+                padding-top: 140px !important;
+                padding-bottom: 0 !important;
+            }
+
+            /* --- Service header (icon + title + desc) --- */
+            #service-title {
+                font-size: 2.75rem !important;
+                line-height: 1.15 !important;
+            }
+
+            #service-desc {
+                font-size: 1.1rem !important;
+                max-width: 100% !important;
+            }
+
+            /* The outer flex-column header — reduce bottom margin */
+            [style*="margin-bottom: 6rem"] {
+                margin-bottom: 3.5rem !important;
+            }
+
+            /* --- "Problems vs Key Features" 2-col grid → stack --- */
+            .grid-2[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 2.5rem !important;
+            }
+
+            /* Glass card Key Features panel */
+            .glass-card[style*="padding: 3rem"] {
+                padding: 2rem !important;
+            }
+
+            /* Key Features inner 2-col mini-grid: stays 2-col on tablet only */
+            .glass-card[style*="padding: 3rem"] div[style*="grid-template-columns: 1fr 1fr"],
+            .glass-card[style*="padding: 2rem"] div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.25rem !important;
+            }
+
+            /* --- Pricing grid --- */
+            .marketing-layout .grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1.5rem;
+            }
+
+            /* Pricing card padding */
+            .grid-3 .glass-card[style*="padding: 3rem"] {
+                padding: 2rem !important;
+            }
+
+            /* --- FAQ --- */
+            details[style*="padding: 2rem"] {
+                padding: 1.5rem !important;
+            }
+
+            /* Section heading */
+            .marketing-layout .section-padding h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* ── Mobile: ≤ 768px ───────────────────────── */
+        @media (max-width: 768px) {
+
+            /* Details hero: override section-padding compression.
+               responsive.css shrinks section-padding to 3rem (48px)
+               at ≤768px — well below the 80px fixed navbar. */
+            .details-hero {
+                padding-top: 110px !important;
+                padding-bottom: 0 !important;
+            }
+
+            /* Container padding */
+            .container {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            /* Non-hero section padding */
+            .marketing-layout .section-padding:not(.details-hero) {
+                padding: 3rem 0;
+            }
+
+            /* --- Service Header --- */
+            #service-title {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+                word-break: break-word;
+                margin-bottom: 1rem !important;
+            }
+
+            #service-desc {
+                font-size: 1rem !important;
+                line-height: 1.7 !important;
+            }
+
+            /* Icon box */
+            #service-icon {
+                width: 64px !important;
+                height: 64px !important;
+                border-radius: 16px !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            #service-icon i {
+                width: 36px !important;
+                height: 36px !important;
+            }
+
+            /* Header margin */
+            [style*="margin-bottom: 6rem"] {
+                margin-bottom: 2.5rem !important;
+            }
+
+            /* --- Problems + Key Features: FULL single column --- */
+            .grid-2[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            /* Section problem list */
+            .grid-2[style*="grid-template-columns: 1fr 1fr"]>div>h2 {
+                font-size: 1.5rem !important;
+                margin-bottom: 1.25rem !important;
+            }
+
+            /* Problem list items */
+            .grid-2[style*="grid-template-columns: 1fr 1fr"] ul li {
+                gap: 0.75rem !important;
+            }
+
+            .grid-2[style*="grid-template-columns: 1fr 1fr"] ul li h4 {
+                font-size: 1rem !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            .grid-2[style*="grid-template-columns: 1fr 1fr"] ul li p {
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+            }
+
+            /* Glass card Key Features */
+            .glass-card[style*="padding: 3rem"],
+            .glass-card[style*="padding: 2rem"] {
+                padding: 1.5rem !important;
+                border-radius: 20px !important;
+            }
+
+            .glass-card h2 {
+                font-size: 1.4rem !important;
+                margin-bottom: 1.25rem !important;
+            }
+
+            /* Key Features inner grid → 2-col still fits on 768px */
+            div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 2rem"] {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 1rem !important;
+            }
+
+            div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 2rem"] h4 {
+                font-size: 0.9rem !important;
+            }
+
+            div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 2rem"] p {
+                font-size: 0.8rem !important;
+            }
+
+            /* --- Pricing: 1 column --- */
+            .marketing-layout .grid-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+            }
+
+            /* Pricing card padding */
+            .grid-3 .glass-card {
+                padding: 2rem 1.5rem !important;
+                border-radius: 20px !important;
+            }
+
+            /* Price number — keep clean */
+            .grid-3 .glass-card div[style*="font-size: 3rem"] {
+                font-size: 2.5rem !important;
+                margin: 1rem 0 !important;
+            }
+
+            /* Pricing button — full width */
+            .grid-3 .glass-card a {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box;
+                text-align: center !important;
+            }
+
+            /* --- FAQ section --- */
+            details[style*="padding: 2rem"] {
+                padding: 1.25rem !important;
+                border-radius: 12px !important;
+            }
+
+            details summary {
+                font-size: 1rem !important;
+            }
+
+            details p {
+                font-size: 0.9rem !important;
+                line-height: 1.65 !important;
+                margin-top: 1rem !important;
+            }
+
+            /* Section headings */
+            .marketing-layout .section-padding .text-center h2 {
+                font-size: 1.75rem !important;
+                line-height: 1.25;
+            }
+        }
+
+        /* ── Small Mobile: ≤ 480px ─────────────────── */
+        @media (max-width: 480px) {
+
+            .details-hero {
+                padding-top: 100px !important;
+                padding-bottom: 0 !important;
+            }
+
+            .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            #service-title {
+                font-size: 1.65rem !important;
+            }
+
+            #service-desc {
+                font-size: 0.95rem !important;
+            }
+
+            /* Key Features inner mini-grid → single column on very narrow */
+            div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 2rem"] {
+                grid-template-columns: 1fr !important;
+                gap: 0.875rem !important;
+            }
+
+            .glass-card[style*="padding: 3rem"],
+            .glass-card[style*="padding: 2rem"] {
+                padding: 1.25rem !important;
+                border-radius: 16px !important;
+            }
+
+            .grid-3 .glass-card {
+                padding: 1.5rem 1.25rem !important;
+            }
+
+            .grid-3 .glass-card div[style*="font-size: 3rem"] {
+                font-size: 2.25rem !important;
+            }
+
+            .marketing-layout .section-padding:not(.details-hero) {
+                padding: 2.5rem 0;
+            }
+
+            .marketing-layout .section-padding .text-center h2 {
+                font-size: 1.5rem !important;
+            }
+
+            details[style*="padding: 2rem"] {
+                padding: 1rem !important;
+            }
+
+            details summary {
+                font-size: 0.95rem !important;
+                gap: 0.5rem;
+            }
+        }
+
+        /* ── Very Small: ≤ 360px ───────────────────── */
+        @media (max-width: 360px) {
+
+            .details-hero {
+                padding-top: 96px !important;
+                padding-bottom: 0 !important;
+            }
+
+            .container {
+                padding-left: 0.875rem !important;
+                padding-right: 0.875rem !important;
+            }
+
+            #service-title {
+                font-size: 1.45rem !important;
+            }
+
+            .glass-card h2 {
+                font-size: 1.2rem !important;
+            }
+
+            .marketing-layout .section-padding:not(.details-hero) {
+                padding: 2rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../../src/js/main.js"></script>
+        <script src="../../../src/js/auth.js"></script>
+
+        <main>
+            <!-- Service Header -->
+            <section class="section-padding details-hero container">
+                <div
+                    style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 6rem;">
+                    <div id="service-icon"
+                        style="width: 80px; height: 80px; background: rgba(99, 102, 241, 0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 2rem;">
+                        <i data-lucide="layout" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h1 id="service-title" class="hero-headline" style="font-size: 3.5rem; margin-bottom: 1.5rem;">
+                        Product Development</h1>
+                    <p id="service-desc"
+                        style="color: var(--text-muted); font-size: 1.25rem; max-width: 700px; margin: 0 auto;">
+                        Accelerate your product journey with our expert engineering team. We handle the technical
+                        complexity so you can focus on your vision.
+                    </p>
+                </div>
+
+                <div class="grid-2"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;">
+                    <div>
+                        <h2 style="margin-bottom: 2rem;">Problems We Solve</h2>
+                        <ul style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <li style="display: flex; gap: 1rem;">
+                                <i data-lucide="check-circle-2" style="color: var(--success); flex-shrink: 0;"></i>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Slow Development Cycles</h4>
+                                    <p style="color: var(--text-muted);">Eliminate bottlenecks and ship features faster
+                                        with our optimized workflows.</p>
+                                </div>
+                            </li>
+                            <li style="display: flex; gap: 1rem;">
+                                <i data-lucide="check-circle-2" style="color: var(--success); flex-shrink: 0;"></i>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Scalability Issues</h4>
+                                    <p style="color: var(--text-muted);">Ensure your application can handle millions of
+                                        users from day one.</p>
+                                </div>
+                            </li>
+                            <li style="display: flex; gap: 1rem;">
+                                <i data-lucide="check-circle-2" style="color: var(--success); flex-shrink: 0;"></i>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem;">Technical Debt</h4>
+                                    <p style="color: var(--text-muted);">We write clean, maintainable code that grows
+                                        with your business.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass-card" style="padding: 3rem; border-radius: 32px;">
+                        <h2 style="margin-bottom: 2rem;">Key Features</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Global Edge</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Instant deployment to 300+
+                                    nodes.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Real-time Ops</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Live monitoring and analytics.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Auto-scaling</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Compute that scales with demand.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">DevSecOps</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Integrated security and CI/CD.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing Table -->
+            <section class="section-padding container">
+                <div class="text-center" style="margin-bottom: 4rem;">
+                    <h2>Simple, Transparent <span style="color: var(--primary);">Pricing</span></h2>
+                </div>
+                <div class="grid-3">
+                    <div class="glass-card" style="padding: 3rem; text-align: center;">
+                        <span
+                            style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Starter</span>
+                        <div style="font-size: 3rem; font-weight: 800; margin: 1.5rem 0;">$49<span
+                                style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/mo</span></div>
+                        <ul
+                            style="color: var(--text-muted); margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <li>5 Projects</li>
+                            <li>Standard Support</li>
+                            <li>Basic Analytics</li>
+                        </ul>
+                        <a href="#" class="btn-outline"
+                            style="display: block; width: 100%; border: 1px solid var(--border); padding: 1rem; border-radius: 12px;">Get
+                            Started</a>
+                    </div>
+                    <div class="glass-card"
+                        style="padding: 3rem; text-align: center; border-color: var(--primary); position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; padding: 0.5rem 1.5rem; font-size: 0.8rem; font-weight: 700; border-bottom-left-radius: 12px;">
+                            POPULAR</div>
+                        <span
+                            style="font-size: 0.9rem; font-weight: 600; color: var(--primary-light); text-transform: uppercase;">Growth</span>
+                        <div style="font-size: 3rem; font-weight: 800; margin: 1.5rem 0;">$199<span
+                                style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/mo</span></div>
+                        <ul
+                            style="color: var(--text-muted); margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <li>Unlimited Projects</li>
+                            <li>Priority Support</li>
+                            <li>Advanced AI Insights</li>
+                        </ul>
+                        <a href="#" class="btn-primary"
+                            style="display: block; width: 100%; padding: 1rem; border-radius: 12px;">Get Started</a>
+                    </div>
+                    <div class="glass-card" style="padding: 3rem; text-align: center;">
+                        <span
+                            style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Enterprise</span>
+                        <div style="font-size: 3rem; font-weight: 800; margin: 1.5rem 0;">Custom</div>
+                        <ul
+                            style="color: var(--text-muted); margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <li>Custom Infrastructure</li>
+                            <li>24/7 Dedicated Support</li>
+                            <li>White-labeling Options</li>
+                        </ul>
+                        <a href="../contact.html" class="btn-outline"
+                            style="display: block; width: 100%; border: 1px solid var(--border); padding: 1rem; border-radius: 12px;">Contact
+                            Sales</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="section-padding container">
+                <div class="text-center" style="margin-bottom: 4rem;">
+                    <h2>Common Questions</h2>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <details
+                        style="margin-bottom: 1.5rem; padding: 2rem; border: 1px solid var(--border); border-radius: 16px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 600; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            How long does a typical project take?
+                            <i data-lucide="chevron-down"></i>
+                        </summary>
+                        <p style="color: var(--text-muted); margin-top: 1.5rem; line-height: 1.7;">
+                            Most MVP building projects take between 4 to 8 weeks depending on the complexity of the
+                            feature set. Our goal is always to get you to market as fast as possible.
+                        </p>
+                    </details>
+                    <details
+                        style="margin-bottom: 1.5rem; padding: 2rem; border: 1px solid var(--border); border-radius: 16px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 600; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            Do you provide ongoing support after launch?
+                            <i data-lucide="chevron-down"></i>
+                        </summary>
+                        <p style="color: var(--text-muted); margin-top: 1.5rem; line-height: 1.7;">
+                            Yes, all our plans include some level of post-launch support. Our Enterprise plan includes a
+                            dedicated engineer who works closely with your team.
+                        </p>
+                    </details>
+                </div>
+            </section>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+    </div>
+    <script>
+        lucide.createIcons();
+
+        // Simple dynamic content based on URL param (for demo purposes)
+        const params = new URLSearchParams(window.location.search);
+        const service = params.get('service');
+        if (service) {
+            const title = document.getElementById('service-title');
+            const desc = document.getElementById('service-desc');
+            const icon = document.getElementById('service-icon');
+
+            if (service === 'ai-automation') {
+                title.innerText = 'AI / Automation';
+                desc.innerText = 'Integrate cutting-edge AI and automate complex workflows to give your startup a competitive edge.';
+                icon.innerHTML = '<i data-lucide="cpu" style="width: 48px; height: 48px;"></i>';
+            } else if (service === 'mvp-building') {
+                title.innerText = 'MVP Building';
+                desc.innerText = 'Go from zero to one in record time. We build robust MVPs that are ready for scale and investment.';
+                icon.innerHTML = '<i data-lucide="rocket" style="width: 48px; height: 48px;"></i>';
+            } else if (service === 'web-app') {
+                title.innerText = 'Web & App Development';
+                desc.innerText = 'High-performance web and mobile applications built with modern frameworks and global edge deployment.';
+                icon.innerHTML = '<i data-lucide="smartphone" style="width: 48px; height: 48px;"></i>';
+            } else if (service === 'growth') {
+                title.innerText = 'Growth & Scaling';
+                desc.innerText = 'Infrastructure and tools designed for velocity. We handle the technical bottlenecks so you can focus on growth.';
+                icon.innerHTML = '<i data-lucide="trending-up" style="width: 48px; height: 48px;"></i>';
+            } else if (service === 'security') {
+                title.innerText = 'Security & Compliance';
+                desc.innerText = 'Bank-grade security and automated compliance (SOC2, GDPR) built directly into your platform.';
+                icon.innerHTML = '<i data-lucide="shield-check" style="width: 48px; height: 48px;"></i>';
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

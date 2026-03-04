@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Nexus - Empowering the Next Generation</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* =============================================
+           ABOUT.HTML — RESPONSIVE FIXES
+           These rules use !important to override inline
+           styles on h1, h2, and section containers.
+           Tablet: ≤1024px | Mobile: ≤768px | ≤480px | ≤360px
+           Desktop (>1024px): UNTOUCHED
+           ============================================= */
+
+        /* Global overflow guard */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* Ensure all images are responsive by default */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ── Tablet: ≤ 1024px ──────────────────────── */
+        @media (max-width: 1024px) {
+
+            /* --- Hero --- */
+            .about-layout .hero-centered {
+                padding: 130px 0 60px;
+                text-align: center;
+            }
+
+            /* Override inline style="font-size: 4.5rem" */
+            .about-layout .hero-centered h1 {
+                font-size: 3rem !important;
+                line-height: 1.15 !important;
+                margin: 1.25rem 0 !important;
+            }
+
+            .about-layout .hero-centered .hero-para {
+                font-size: 1.1rem !important;
+            }
+
+            /* --- Mission & Vision --- */
+            /* Override inline grid-template-columns: 1fr 1fr; gap: 6rem */
+            .about-layout .mission-vision,
+            [style*="grid-template-columns: 1fr 1fr"][style*="gap: 6rem"] {
+                grid-template-columns: 1fr !important;
+                gap: 3rem !important;
+            }
+
+            /* Mission image glass card — reduce heavy padding */
+            .about-layout .mission-vision .glass-card,
+            [style*="grid-template-columns: 1fr 1fr"][style*="gap: 6rem"] .glass-card {
+                padding: 2.5rem !important;
+                border-radius: 28px !important;
+            }
+
+            /* --- Section headings (inline font-size: 3rem) --- */
+            .about-layout .section-padding h2[style*="font-size: 3rem"],
+            .about-layout .section-padding .text-center h2 {
+                font-size: 2.25rem !important;
+            }
+
+            /* --- Section heading top containers */
+            [style*="margin-bottom: 5rem"] {
+                margin-bottom: 3rem !important;
+            }
+
+            /* --- Team grid: 2 columns on tablet --- */
+            .about-layout .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            /* --- Pillar grid: 2 columns on tablet --- */
+            .about-layout .pillar-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.75rem;
+            }
+
+            /* --- Logo strip --- */
+            .logo-flex[style*="gap: 4rem"] {
+                gap: 2.5rem !important;
+                flex-wrap: wrap;
+            }
+
+            /* --- Testimonial: reset grid-column span on 1-col grid --- */
+            .about-layout .grid-3 .testimonial-card[style*="grid-column: span 2"] {
+                grid-column: span 1 !important;
+            }
+        }
+
+        /* ── Mobile: ≤ 768px ───────────────────────── */
+        @media (max-width: 768px) {
+
+            /* Container side padding */
+            .container {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            /* --- Hero --- */
+            .about-layout .hero-centered {
+                padding: 110px 0 50px;
+            }
+
+            /* Override inline style="font-size: 4.5rem" */
+            .about-layout .hero-centered h1 {
+                font-size: 2.25rem !important;
+                line-height: 1.2 !important;
+                margin: 1rem 0 !important;
+                word-break: break-word;
+            }
+
+            .about-layout .hero-centered span:first-child {
+                font-size: 0.8rem !important;
+                letter-spacing: 1.5px;
+            }
+
+            .about-layout .hero-centered .hero-para {
+                font-size: 1rem !important;
+                line-height: 1.7 !important;
+                max-width: 100% !important;
+            }
+
+            /* --- Mission & Vision --- */
+            .about-layout .mission-vision,
+            [style*="grid-template-columns: 1fr 1fr"][style*="gap: 6rem"] {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            /* Mission text headings (inline font-size: 2.5rem) */
+            .about-layout .mission-vision h2[style*="font-size: 2.5rem"] {
+                font-size: 1.6rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* Mission body text */
+            .about-layout .mission-vision p[style*="font-size: 1.1rem"] {
+                font-size: 1rem !important;
+                line-height: 1.7 !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* Mission card — full-width, less padding */
+            .about-layout .mission-vision .glass-card {
+                padding: 1.75rem !important;
+                border-radius: 20px !important;
+                overflow: visible;
+            }
+
+            /* Image inside glass card */
+            .about-layout .mission-vision .glass-card img {
+                border-radius: 12px !important;
+            }
+
+            /* "Founded in 2022" info row — handle narrow screens */
+            .about-layout .mission-vision .glass-card>div[style*="display: flex"] {
+                gap: 0.875rem !important;
+                align-items: flex-start !important;
+                flex-wrap: wrap;
+            }
+
+            .about-layout .mission-vision .glass-card div[style*="width: 60px"] {
+                width: 48px !important;
+                height: 48px !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* --- "Why We Started" section --- */
+            .about-layout [style*="margin-bottom: 5rem"] {
+                margin-bottom: 2.5rem !important;
+            }
+
+            /* Override inline font-size: 3rem on "Why We Started" h2 */
+            .about-layout .section-padding h2[style*="font-size: 3rem"],
+            .about-layout .section-padding .text-center h2 {
+                font-size: 1.85rem !important;
+                line-height: 1.2 !important;
+            }
+
+            /* Body copy in "Why We Started" */
+            .about-layout [style*="max-width: 900px"] {
+                font-size: 1rem !important;
+                line-height: 1.75 !important;
+            }
+
+            .about-layout [style*="max-width: 900px"] p {
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* --- Logo strip --- */
+            .logo-flex[style*="gap: 4rem"] {
+                gap: 1.5rem !important;
+                flex-wrap: wrap;
+                justify-content: center !important;
+            }
+
+            .logo-flex .logo-text[style*="font-size: 1.5rem"] {
+                font-size: 1.1rem !important;
+            }
+
+            /* --- Team Section --- */
+            .about-layout .team-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem;
+            }
+
+            .about-layout .team-card {
+                padding: 1.75rem 1.5rem !important;
+                border-radius: 24px !important;
+            }
+
+            /* Team image stays circular, just ensure container scales */
+            .about-layout .team-image {
+                width: 120px !important;
+                height: 120px !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            .about-layout .team-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* --- Values / Pillar Section --- */
+            .about-layout .pillar-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem;
+            }
+
+            .about-layout .pillar-card {
+                padding: 1.75rem !important;
+                border-radius: 20px !important;
+            }
+
+            .about-layout .pillar-icon {
+                width: 52px !important;
+                height: 52px !important;
+                border-radius: 12px !important;
+                margin-bottom: 1.25rem !important;
+            }
+
+            /* Pillar headings */
+            .about-layout .pillar-card h3 {
+                font-size: 1.15rem !important;
+            }
+
+            /* --- Testimonials section --- */
+            /* The grid-3 collapses to 1fr via responsive.css.
+               Reset the span-2 card so it doesn't cause issues */
+            .about-layout section .grid-3 {
+                grid-template-columns: 1fr !important;
+            }
+
+            .about-layout .testimonial-card[style*="grid-column: span 2"] {
+                grid-column: 1 !important;
+            }
+
+            .about-layout .testimonial-card {
+                padding: 2rem 1.5rem !important;
+                border-radius: 24px !important;
+            }
+
+            .marketing-layout .testimonial-text {
+                font-size: 1.05rem !important;
+                margin-bottom: 2rem !important;
+            }
+
+            /* --- CTA Section --- */
+            .about-layout .cta-card {
+                padding: 3rem 1.5rem !important;
+                border-radius: 24px !important;
+            }
+
+            .about-layout .cta-card h2 {
+                font-size: 1.75rem !important;
+            }
+
+            .about-layout .cta-card p[style*="font-size: 1.25rem"] {
+                font-size: 1rem !important;
+                margin: 1.25rem 0 2rem !important;
+            }
+
+            /* CTA Button — full width on mobile */
+            .about-layout .cta-card .btn-primary {
+                display: block !important;
+                width: 100% !important;
+                max-width: 320px !important;
+                margin: 0 auto !important;
+                text-align: center !important;
+            }
+
+            /* Section padding */
+            .about-layout .section-padding {
+                padding: 3.5rem 0;
+            }
+        }
+
+        /* ── Small Mobile: ≤ 480px ─────────────────── */
+        @media (max-width: 480px) {
+
+            .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .about-layout .hero-centered {
+                padding: 100px 0 40px;
+            }
+
+            .about-layout .hero-centered h1 {
+                font-size: 1.85rem !important;
+            }
+
+            .about-layout .section-padding h2[style*="font-size: 3rem"],
+            .about-layout .section-padding .text-center h2 {
+                font-size: 1.55rem !important;
+            }
+
+            .about-layout .mission-vision h2[style*="font-size: 2.5rem"] {
+                font-size: 1.4rem !important;
+            }
+
+            .about-layout .mission-vision .glass-card {
+                padding: 1.25rem !important;
+                border-radius: 16px !important;
+            }
+
+            .about-layout .pillar-card {
+                padding: 1.5rem !important;
+            }
+
+            .about-layout .team-image {
+                width: 100px !important;
+                height: 100px !important;
+            }
+
+            .about-layout .team-card {
+                padding: 1.5rem 1.25rem !important;
+                border-radius: 20px !important;
+            }
+
+            .about-layout .testimonial-card {
+                padding: 1.75rem 1.25rem !important;
+                border-radius: 20px !important;
+            }
+
+            .about-layout .cta-card {
+                padding: 2.5rem 1.25rem !important;
+                border-radius: 20px !important;
+            }
+
+            .about-layout .cta-card h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .about-layout .section-padding {
+                padding: 2.5rem 0;
+            }
+
+            .logo-flex .logo-text[style*="font-size: 1.5rem"] {
+                font-size: 1rem !important;
+            }
+        }
+
+        /* ── Very Small: ≤ 360px ───────────────────── */
+        @media (max-width: 360px) {
+
+            .container {
+                padding-left: 0.875rem !important;
+                padding-right: 0.875rem !important;
+            }
+
+            .about-layout .hero-centered h1 {
+                font-size: 1.6rem !important;
+            }
+
+            .about-layout .section-padding h2[style*="font-size: 3rem"],
+            .about-layout .section-padding .text-center h2 {
+                font-size: 1.4rem !important;
+            }
+
+            .about-layout .mission-vision h2[style*="font-size: 2.5rem"] {
+                font-size: 1.25rem !important;
+            }
+
+            .about-layout .section-padding {
+                padding: 2rem 0;
+            }
+
+            .about-layout .pillar-card {
+                padding: 1.25rem !important;
+            }
+
+            .about-layout .team-card {
+                padding: 1.25rem 1rem !important;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="marketing-layout about-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../src/js/main.js"></script>
+        <script src="../../src/js/auth.js"></script>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-centered">
+                <div class="container">
+                    <span
+                        style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Building
+                        the Future</span>
+                    <h1 style="font-size: 4.5rem; margin: 1.5rem 0;">Driven by <span
+                            style="color: var(--primary);">Innovation</span>.</h1>
+                    <p class="hero-para" style="max-width: 800px; margin: 0 auto; font-size: 1.25rem;">
+                        Nexus was founded on the belief that technical complexity should never be a barrier to human
+                        ingenuity. We're on a mission to empower every startup with the tools they need to scale
+                        globally.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Mission & Vision -->
+            <section class="section-padding container">
+                <div class="mission-vision"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;">
+                    <div>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Our Mission</h2>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                            To democratize world-class infrastructure, making it accessible to every founder and
+                            engineering team. We aim to be the silent engine behind the world's fastest-growing
+                            companies.
+                        </p>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Our Vision</h2>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+                            A world where building a global technology scale-up is as simple as writing code. We
+                            envision Nexus as the global standard for cloud operations.
+                        </p>
+                    </div>
+                    <div class="glass-card"
+                        style="padding: 4rem; border-radius: 40px; position: relative; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
+                            alt="Team Synergy" style="width: 100%; border-radius: 20px;">
+                        <div style="margin-top: 2rem; display: flex; align-items: center; gap: 1rem;">
+                            <div
+                                style="width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;">
+                                <i data-lucide="award"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Founded in 2022</h4>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Starting with a team of 3
+                                    builders.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why We Started -->
+            <section class="section-padding container">
+                <div class="text-center" style="margin-bottom: 5rem;">
+                    <h2 style="font-size: 3rem;">Why We <span style="color: var(--primary);">Started</span></h2>
+                </div>
+                <div
+                    style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: var(--text-muted); font-size: 1.15rem;">
+                    <p style="margin-bottom: 2rem;">
+                        As developers at some of the world's largest tech companies, we saw firsthand how much time was
+                        wasted on repetitive infrastructure tasks. Small teams were struggling to keep up with the
+                        technical demands of scaling, while large teams were bogged down by legacy systems.
+                    </p>
+                    <p>
+                        We started Nexus to solve this once and for all. By building a platform that handles the heavy
+                        lifting of global deployment, security, and scaling, we give founders back their most precious
+                        resource: <strong>Time</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Trusted By Logos -->
+            <section class="logo-strip"
+                style="background: transparent; border: none; padding-bottom: 4rem; opacity: 0.7;">
+                <div class="container text-center">
+                    <p class="trusted-by"
+                        style="margin-bottom: 2rem; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">
+                        Trusted by innovators</p>
+                    <div class="logo-flex"
+                        style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; opacity: 0.6;">
+                        <span class="logo-text" style="font-weight: 700; font-size: 1.5rem;">ACME AI</span>
+                        <span class="logo-text" style="font-weight: 700; font-size: 1.5rem;">KINETIC</span>
+                        <span class="logo-text" style="font-weight: 700; font-size: 1.5rem;">BOLT</span>
+                        <span class="logo-text" style="font-weight: 700; font-size: 1.5rem;">NEXA</span>
+                        <span class="logo-text" style="font-weight: 700; font-size: 1.5rem;">QUANTUM</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values Section -->
+            <section class="section-padding container">
+                <div class="text-center" style="margin-bottom: 5rem;">
+                    <h2 style="font-size: 3rem;">Our <span style="color: var(--primary);">Values</span></h2>
+                </div>
+                <div class="pillar-grid">
+                    <div class="pillar-card glass-card fade-up" style="animation-delay: 0.1s;">
+                        <div class="pillar-icon"><i data-lucide="zap"></i></div>
+                        <h3>Speed as a Habit</h3>
+                        <p style="color: var(--text-muted); margin-top: 1rem;">We move fast and build for velocity.
+                            Precision without delay is our standard.</p>
+                    </div>
+                    <div class="pillar-card glass-card fade-up" style="animation-delay: 0.2s;">
+                        <div class="pillar-icon"><i data-lucide="shield-check"></i></div>
+                        <h3>Trust by Default</h3>
+                        <p style="color: var(--text-muted); margin-top: 1rem;">Security is never an afterthought. We
+                            build trust into every line of code.</p>
+                    </div>
+                    <div class="pillar-card glass-card fade-up" style="animation-delay: 0.3s;">
+                        <div class="pillar-icon"><i data-lucide="heart"></i></div>
+                        <h3>Founder First</h3>
+                        <p style="color: var(--text-muted); margin-top: 1rem;">We've been in your shoes. Every decision
+                            we make is guided by your success.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team Section -->
+            <section class="section-padding container">
+                <div class="text-center" style="margin-bottom: 5rem;">
+                    <h2 style="font-size: 3rem;">The <span style="color: var(--primary);">Builders</span></h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card glass-card">
+                        <div class="team-image">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200" alt="CEO">
+                        </div>
+                        <h3>Alex Rivera</h3>
+                        <p style="color: var(--primary-light); font-weight: 600;">CEO & Founder</p>
+                        <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem;">Formerly lead
+                            architect at Google Cloud. Obsessed with distributed systems.</p>
+                        <div class="team-socials">
+                            <a href="#"><i data-lucide="twitter"></i></a>
+                            <a href="#"><i data-lucide="linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-card glass-card">
+                        <div class="team-image">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200"
+                                alt="CTO">
+                        </div>
+                        <h3>Sarah Chen</h3>
+                        <p style="color: var(--primary-light); font-weight: 600;">CTO & Co-Founder</p>
+                        <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem;">Scaling expert with a
+                            passion for edge computing and security protocols.</p>
+                        <div class="team-socials">
+                            <a href="#"><i data-lucide="github"></i></a>
+                            <a href="#"><i data-lucide="linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-card glass-card">
+                        <div class="team-image">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200"
+                                alt="VP Eng">
+                        </div>
+                        <h3>Marco Rossi</h3>
+                        <p style="color: var(--primary-light); font-weight: 600;">VP of Engineering</p>
+                        <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem;">Veteran platform
+                            engineer who previously led teams at Stripe and Uber.</p>
+                        <div class="team-socials">
+                            <a href="#"><i data-lucide="twitter"></i></a>
+                            <a href="#"><i data-lucide="linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="section-padding container">
+                <div class="grid-3">
+                    <div class="testimonial-card glass-card">
+                        <p class="testimonial-text">"Nexus has completely transformed how our engineering team works. We
+                            no longer worry about infrastructure."</p>
+                        <div class="author-info">
+                            <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=100&auto=format&fit=crop"
+                                alt="Marcus Wright" class="author-avatar">
+                            <div class="author-details">
+                                <h4>Marcus Wright</h4>
+                                <p>Founder, Flow</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card glass-card" style="grid-column: span 2;">
+                        <p class="testimonial-text">"The performance boost was immediate. Our global users are seeing
+                            50ms latency. Nexus is the best decision we made for our growth."</p>
+                        <div class="author-info">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&auto=format&fit=crop"
+                                alt="Sarah Chen" class="author-avatar">
+                            <div class="author-details">
+                                <h4>Sarah Chen</h4>
+                                <p>CTO, Lumos AI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="section-padding container text-center">
+                <div class="cta-card glass-card">
+                    <h2>Join the Hypergrowth Era</h2>
+                    <p style="margin: 2rem 0 3rem; color: var(--text-muted); font-size: 1.25rem;">Start building your
+                        legacy on Nexus today.</p>
+                    <a href="../../auth/user/user-signup.html" class="btn-primary">Create Free Account</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>

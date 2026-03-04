@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Nexus Dashboard</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="src/css/base/tokens.css">
+    <link rel="stylesheet" href="src/css/layouts/dashboard.css">
+    <link rel="stylesheet" href="src/css/responsive.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Settings Specific Styles */
+        .settings-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .settings-tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 2px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            color: #6366f1;
+            border-bottom-color: #6366f1;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .settings-section {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-desc {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #6366f1;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+        }
+
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .two-col-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Modal Root -->
+    <div id="modal-root"></div>
+
+    <div id="app-root" class="layout-container">
+        <!-- Sidebar -->
+        <aside id="sidebar-root" class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-link">
+                    <div
+                        style="background: rgba(99, 102, 241, 0.2); padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(99, 102, 241, 0.3);">
+                        <i data-lucide="layers" style="width: 20px; height: 20px; color: #818cf8;"></i>
+                    </div>
+                    <span
+                        style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; padding-left: 0.5rem;">
+                        Nexus<span style="color: #6366f1;">.</span>
+                    </span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <div class="nav-label">Main</div>
+                    <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Overview</a>
+                    <a href="dashboard.html" class="nav-item"><i data-lucide="folder"></i> Projects</a>
+                    <a href="#" class="nav-item"><i data-lucide="activity"></i> Analytics</a>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">Settings</div>
+                    <a href="#" class="nav-item"><i data-lucide="message-square"></i> Messages</a>
+                    <a href="settings.html" class="nav-item active"><i data-lucide="settings"></i> Settings</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button onclick="Auth.logout()" class="logout-btn">
+                    <i data-lucide="log-out"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <button id="sidebar-toggle" class="mobile-only action-btn"
+                    style="flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                    <span
+                        style="display: block; width: 18px; height: 2px; background-color: currentColor; border-radius: 2px;"></span>
+                    <span
+                        style="display: block; width: 18px; height: 2px; background-color: currentColor; border-radius: 2px;"></span>
+                    <span
+                        style="display: block; width: 18px; height: 2px; background-color: currentColor; border-radius: 2px;"></span>
+                </button>
+                <div class="dashboard-breadcrumb">
+                    <h1
+                        style="font-size: 1.25rem; background: linear-gradient(to right, #fff, #94a3b8); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        Account Settings</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="user-profile-widget" id="profile-toggle" style="cursor: pointer;">
+                        <span id="user-display-name" class="user-label">Loading...</span>
+                        <div class="avatar-circle"><i data-lucide="user"></i></div>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="dropdown-menu" id="profile-menu"></div>
+                </div>
+            </header>
+
+            <!-- Scroll Area -->
+            <div class="content-scroll-area">
+                <div class="settings-container">
+
+                    <!-- Tabs -->
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" onclick="switchTab('profile')">Profile</button>
+                        <button class="tab-btn" onclick="switchTab('account')">Account</button>
+                        <button class="tab-btn" onclick="switchTab('preferences')">Preferences</button>
+                        <button class="tab-btn" onclick="switchTab('security')">Security</button>
+                    </div>
+
+                    <!-- 1. Profile Tab -->
+                    <div id="tab-profile" class="tab-content active">
+                        <div class="settings-section">
+                            <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Profile
+                                Information</h2>
+                            <p class="section-desc">Update your public profile and personal details.</p>
+
+                            <div class="two-col-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Display Name</label>
+                                    <input type="text" class="form-input" value="Demo User"
+                                        placeholder="Your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-input" value="demo@nexus.com"
+                                        placeholder="name@example.com">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-textarea"
+                                    placeholder="Tell us a little about yourself...">Software Engineer passionate about building scalable web applications.</textarea>
+                            </div>
+
+                            <div
+                                style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                                <button class="btn-primary" onclick="alert('Profile updated!')">Save Changes</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Change Password
+                            </h2>
+                            <p class="section-desc">Ensure your account is secure with a strong password.</p>
+
+                            <div class="form-group">
+                                <label class="form-label">Current Password</label>
+                                <div style="position: relative;">
+                                    <input type="password" id="current-password" class="form-input"
+                                        placeholder="••••••••" style="padding-right: 2.5rem;">
+                                    <button type="button" onclick="togglePassword('current-password', 'icon-curr')"
+                                        style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center;">
+                                        <i id="icon-curr" data-lucide="eye" style="width: 20px;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="two-col-grid">
+                                <div class="form-group">
+                                    <label class="form-label">New Password</label>
+                                    <div style="position: relative;">
+                                        <input type="password" id="new-password" class="form-input"
+                                            placeholder="New password" style="padding-right: 2.5rem;">
+                                        <button type="button" onclick="togglePassword('new-password', 'icon-new')"
+                                            style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center;">
+                                            <i id="icon-new" data-lucide="eye" style="width: 20px;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Confirm Password</label>
+                                    <div style="position: relative;">
+                                        <input type="password" id="confirm-password" class="form-input"
+                                            placeholder="Confirm new password" style="padding-right: 2.5rem;">
+                                        <button type="button"
+                                            onclick="togglePassword('confirm-password', 'icon-confirm')"
+                                            style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center;">
+                                            <i id="icon-confirm" data-lucide="eye" style="width: 20px;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn-primary" onclick="alert('Password updated!')">Update Password</button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Account Tab -->
+                    <div id="tab-account" class="tab-content">
+                        <div class="settings-section">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div>
+                                    <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">
+                                        Subscription Plan</h2>
+                                    <p class="section-desc">Manage your billing and subscription details.</p>
+                                </div>
+                                <span class="status-pill status-active"
+                                    style="padding: 0.5rem 1rem; font-size: 0.9rem;">PRO Plan</span>
+                            </div>
+
+                            <div
+                                style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 style="font-size: 1.1rem; color: #fff; margin: 0;">Nexus Pro</h3>
+                                    <span style="color: #fff; font-weight: 700;">$29/mo</span>
+                                </div>
+                                <p style="color: #cbd5e1; margin-bottom: 1rem; font-size: 0.9rem;">Next billing date:
+                                    <strong>March 1, 2026</strong> via Visa ending in 4242
+                                </p>
+                                <button class="btn-secondary" style="font-size: 0.9rem;">Manage Subscription</button>
+                            </div>
+
+                            <h3 style="margin-bottom: 1rem; color: #fff; font-size: 1.1rem;">Invoices</h3>
+                            <div class="table-wrapper">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Invoice</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Feb 1, 2026</td>
+                                            <td>$29.00</td>
+                                            <td><span class="status-pill status-active">Paid</span></td>
+                                            <td><a href="#" style="color: var(--primary);">Download</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jan 1, 2026</td>
+                                            <td>$29.00</td>
+                                            <td><span class="status-pill status-active">Paid</span></td>
+                                            <td><a href="#" style="color: var(--primary);">Download</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="settings-section" style="border-color: rgba(239, 68, 68, 0.2);">
+                            <h2 class="section-title" style="color: #ef4444; font-size: 1.5rem; margin-bottom: 0.5rem;">
+                                Danger Zone</h2>
+                            <p class="section-desc">Permanently delete your account and all data.</p>
+                            <button class="btn-danger"
+                                onclick="confirm('Are you absolutely sure? This cannot be undone.')">Delete
+                                Account</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Preferences Tab -->
+                    <div id="tab-preferences" class="tab-content">
+                        <div class="settings-section">
+                            <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Appearance</h2>
+
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div>
+                                    <div style="color: #fff; font-weight: 500; margin-bottom: 0.25rem;">Dark Mode</div>
+                                    <div style="color: #94a3b8; font-size: 0.9rem;">Use light text on dark background
+                                    </div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
+                                <div>
+                                    <div style="color: #fff; font-weight: 500; margin-bottom: 0.25rem;">Reduced Motion
+                                    </div>
+                                    <div style="color: #94a3b8; font-size: 0.9rem;">Minimize animations for
+                                        accessibility</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Notifications
+                            </h2>
+
+                            <div class="form-group">
+                                <label
+                                    style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; cursor: pointer; color: #cbd5e1;">
+                                    <input type="checkbox" checked
+                                        style="accent-color: var(--primary); width: 18px; height: 18px;">
+                                    Email me about product updates
+                                </label>
+                                <label
+                                    style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; cursor: pointer; color: #cbd5e1;">
+                                    <input type="checkbox" checked
+                                        style="accent-color: var(--primary); width: 18px; height: 18px;">
+                                    Email me when a deployment fails
+                                </label>
+                                <label
+                                    style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; cursor: pointer; color: #cbd5e1;">
+                                    <input type="checkbox"
+                                        style="accent-color: var(--primary); width: 18px; height: 18px;">
+                                    Subscribe to weekly newsletter
+                                </label>
+                            </div>
+                            <button class="btn-primary" onclick="alert('Preferences saved')">Save Preferences</button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Security Tab -->
+                    <div id="tab-security" class="tab-content">
+                        <div class="settings-section">
+                            <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Two-Factor
+                                Authentication</h2>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                                <div>
+                                    <div style="color: #fff; font-weight: 500; margin-bottom: 0.25rem;">Enable 2FA</div>
+                                    <div style="color: #94a3b8; font-size: 0.9rem;">Protect your account with an extra
+                                        layer of security</div>
+                                </div>
+                                <button class="btn-secondary">Setup 2FA</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Active Sessions
+                            </h2>
+                            <div class="table-wrapper">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Device</th>
+                                            <th>Location</th>
+                                            <th>Last Active</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;"><i
+                                                        data-lucide="monitor" style="width: 16px;"></i> Windows PC</div>
+                                            </td>
+                                            <td>New York, USA</td>
+                                            <td style="color: var(--success);">Current Session</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;"><i
+                                                        data-lucide="smartphone" style="width: 16px;"></i> iPhone 13
+                                                </div>
+                                            </td>
+                                            <td>New York, USA</td>
+                                            <td>2 days ago</td>
+                                            <td><button class="action-btn" title="Revoke"><i data-lucide="x"
+                                                        style="width: 16px;"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="src/js/auth.js"></script>
+    <script src="src/js/modal.js"></script>
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Manual Sidebar Logic for Settings Page
+        // (Since we're hardcoding the sidebar here instead of dynamic loading for simplicity as per instructions)
+        document.getElementById('sidebar-toggle').addEventListener('click', () => {
+            document.getElementById('sidebar-root').classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        });
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Update Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update Content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        // Auth Check
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof Auth !== 'undefined' && Auth.state.isLoggedIn) {
+                const user = Auth.state.data;
+                const disp = document.getElementById('user-display-name');
+                if (disp) disp.textContent = user.name || user.email;
+            }
+        });
+
+        // Password Toggle Helper
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = "password";
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

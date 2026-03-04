@@ -1,0 +1,1013 @@
+/* =============================================
+   NEXUS — COMPREHENSIVE RESPONSIVE STYLESHEET
+   Targets: Mobile (360–480px) & Tablet (768–1024px)
+   Rule: Never overrides desktop layout (>1024px)
+   ============================================= */
+
+/* ── 1. GLOBAL SAFE DEFAULTS ─────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
+img,
+video,
+iframe,
+svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ── 2. TABLET BREAKPOINT ≤ 1024px ───────────── */
+@media (max-width: 1024px) {
+
+    /* --- Container --- */
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    /* --- Section Padding --- */
+    .marketing-layout .section-padding {
+        padding: 5rem 0;
+    }
+
+    .marketing-layout .how-it-works,
+    .marketing-layout .testimonials,
+    .marketing-layout .faq {
+        padding: 6rem 0;
+    }
+
+    /* --- Hero --- */
+    .marketing-layout .hero {
+        padding: 130px 0 60px;
+    }
+
+    .marketing-layout .hero-layout {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .marketing-layout .hero-left,
+    .marketing-layout .hero-right {
+        flex: unset;
+        width: 100%;
+    }
+
+    .marketing-layout .hero-image-container {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .marketing-layout .hero-headline {
+        font-size: 3.5rem;
+    }
+
+    .marketing-layout .hero-para {
+        font-size: 1.1rem;
+    }
+
+    /* Keep hero actions centered when layout stacks */
+    .marketing-layout .hero-left .hero-actions,
+    .hero-actions {
+        justify-content: center;
+    }
+
+    /* --- Stats Grid --- */
+    .marketing-layout .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* --- Feature Cards Grid --- */
+    .marketing-layout .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* --- CTA Card --- */
+    .marketing-layout .cta-card {
+        padding: 5rem 3rem;
+        border-radius: 32px;
+    }
+
+    /* --- Footer Grid --- */
+    .marketing-layout .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+    }
+
+    .marketing-layout .footer {
+        padding: 5rem 0 3rem;
+    }
+
+    /* --- About Page --- */
+    .about-layout .hero-centered {
+        padding: 130px 0 60px;
+    }
+
+    .about-layout .hero-centered h1 {
+        font-size: 3rem;
+    }
+
+    .about-layout .mission-vision {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .about-layout .team-grid,
+    .about-layout .pillar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* --- Blog Layout --- */
+    .blog-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        width: 95%;
+    }
+
+    /* --- Dashboard Sidebar --- */
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar.open {
+        transform: translateX(280px);
+    }
+
+    /* --- Home2 startup page feature rows --- */
+    .feature-row,
+    .feature-row.reversed {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+    }
+
+    .feature-list {
+        align-items: center;
+    }
+
+    .hero-headline-large {
+        font-size: 3.5rem;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: auto;
+    }
+
+    .bento-card.large,
+    .bento-card.wide {
+        grid-column: span 2;
+        grid-row: auto;
+        min-height: 200px;
+    }
+
+    /* --- Pricing cards scale --- */
+    .pricing-card-featured {
+        transform: scale(1.02) !important;
+    }
+}
+
+/* ── 3. MOBILE BREAKPOINT ≤ 768px ────────────── */
+@media (max-width: 768px) {
+
+    /* --- Container --- */
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    /* --- Section Padding --- */
+    .marketing-layout .section-padding {
+        padding: 3.5rem 0;
+    }
+
+    .marketing-layout .how-it-works,
+    .marketing-layout .testimonials,
+    .marketing-layout .faq {
+        padding: 4rem 0;
+    }
+
+    /* --- Global Typography --- */
+    h1,
+    .hero-headline,
+    .hero-headline-large {
+        font-size: 2.25rem !important;
+        line-height: 1.2 !important;
+    }
+
+    h2,
+    .section-title,
+    .cta-headline {
+        font-size: 1.75rem !important;
+        line-height: 1.25 !important;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    p,
+    .hero-para,
+    .hero-subtext,
+    .hero-sub {
+        font-size: 1rem !important;
+    }
+
+    /* --- Hero Section --- */
+    .marketing-layout .hero {
+        padding: 110px 0 50px;
+    }
+
+    .marketing-layout .hero-layout {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .marketing-layout .hero-image-container {
+        max-width: 95%;
+        margin: 0 auto;
+    }
+
+    /* Hero centered (startup page) */
+    .hero-centered-section {
+        padding: 120px 0 60px;
+        min-height: auto;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-glass,
+    .hero-actions .btn-lg,
+    .hero-actions a {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+        justify-content: center;
+    }
+
+    /* --- Stats Grid → 2 columns --- */
+    .marketing-layout .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        padding: 2.5rem 0;
+    }
+
+    .marketing-layout .stat-number {
+        font-size: 2.25rem;
+    }
+
+    /* --- Grid 3 → 1 column --- */
+    .marketing-layout .grid-3 {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem;
+    }
+
+    /* --- Footer Grid → 2 columns --- */
+    .marketing-layout .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .marketing-layout .footer {
+        padding: 4rem 0 2.5rem;
+    }
+
+    .marketing-layout .footer-grid>*:first-child {
+        grid-column: 1 / -1;
+    }
+
+    /* --- Footer Bottom --- */
+    .marketing-layout .footer-bottom,
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1.25rem;
+        text-align: center;
+    }
+
+    .footer-legal-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    /* --- CTA Card --- */
+    .marketing-layout .cta-card {
+        padding: 3rem 1.5rem;
+        border-radius: 24px;
+    }
+
+    /* --- Testimonials Card --- */
+    .marketing-layout .testimonial-card {
+        padding: 2.5rem 1.5rem;
+        border-radius: 24px;
+    }
+
+    .marketing-layout .testimonial-text {
+        font-size: 1.15rem;
+    }
+
+    /* --- FAQ --- */
+    .marketing-layout .faq-question {
+        font-size: 1rem;
+        padding: 1.25rem;
+    }
+
+    .marketing-layout .faq-answer {
+        padding: 0 1.25rem 1.25rem;
+    }
+
+    /* --- Step Cards --- */
+    .marketing-layout .step-card {
+        padding: 3rem 1.5rem 2rem;
+    }
+
+    /* --- About Page --- */
+    .about-layout .hero-centered {
+        padding: 110px 0 50px;
+    }
+
+    .about-layout .hero-centered h1 {
+        font-size: 2.25rem !important;
+    }
+
+    .about-layout .mission-vision {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .about-layout .team-grid,
+    .about-layout .pillar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-layout .team-card {
+        padding: 1.5rem;
+    }
+
+    .about-layout .pillar-card {
+        padding: 2rem;
+    }
+
+    /* About Timeline → single column */
+    .about-layout .timeline::before {
+        left: 12px;
+    }
+
+    .about-layout .timeline-item {
+        width: 100%;
+        padding-left: 2.5rem;
+        padding-right: 0;
+    }
+
+    .about-layout .timeline-item:nth-child(even) {
+        left: 0;
+    }
+
+    .about-layout .timeline-item::after {
+        left: 4px !important;
+        right: auto !important;
+    }
+
+    /* --- Pricing Grid → stack --- */
+    .marketing-layout .grid-3.pricing-grid,
+    [style*="grid-template-columns: 1fr 1.2fr 1fr"],
+    [style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* --- Contact / 2-column grid → stack --- */
+    [style*="grid-template-columns: 1fr 1.2fr"],
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns: 1.2fr 1fr"],
+    .grid-2,
+    .two-col-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    /* --- Inline flex rows that need to wrap --- */
+    [style*="display: flex"][style*="gap"]:not(.hero-actions):not(.nav-right):not(.author-info):not(.btn-primary):not(.mobile-menu-header):not(.footer-status):not(.footer-socials) {
+        flex-wrap: wrap;
+    }
+
+    /* --- Logo Cloud / Logo Strip --- */
+    .marketing-layout .logo-grid,
+    .logo-flex {
+        gap: 2rem;
+        justify-content: center;
+    }
+
+    .marketing-layout .logo-item,
+    .logo-text {
+        font-size: 1.2rem;
+    }
+
+    /* --- Blog Layout --- */
+    .blog-layout {
+        grid-template-columns: 1fr;
+        width: 95%;
+        gap: 2.5rem;
+        padding-bottom: 4rem;
+    }
+
+    .blog-hero {
+        padding: 4rem 0 2.5rem;
+    }
+
+    .blog-hero h1 {
+        font-size: 2rem !important;
+    }
+
+    .blog-posts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* --- Dashboard --- */
+    .layout-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+    }
+
+    .sidebar.open {
+        transform: translateX(280px);
+    }
+
+    .content-scroll-area {
+        padding: 1.25rem;
+    }
+
+    .stats-grid-dashboard {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+
+    .top-bar {
+        padding: 0 1rem;
+    }
+
+    /* Docs page */
+    .docs-page-container {
+        flex-direction: column;
+        margin-top: 70px;
+    }
+
+    .docs-main {
+        padding: 2.5rem 1.25rem !important;
+    }
+
+    .docs-article h1 {
+        font-size: 2rem !important;
+    }
+
+    /* --- Settings/Forms --- */
+    .settings-container {
+        max-width: 100%;
+    }
+
+    /* --- Home2 / Startup --- */
+    .feature-row,
+    .feature-row.reversed {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .feature-list {
+        align-items: center;
+    }
+
+    .visual-card {
+        transform: none !important;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+
+    .bento-card.large,
+    .bento-card.wide {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 180px;
+    }
+
+    .bento-card {
+        padding: 1.25rem;
+        min-height: 160px;
+    }
+
+    /* --- Careers: Job cards stack --- */
+    .job-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1.25rem !important;
+    }
+
+    .job-meta {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+
+    /* --- Inline pricing tables → stack --- */
+    [style*="transform: scale(1.05)"] {
+        transform: none !important;
+    }
+}
+
+/* ── 4. SMALL MOBILE ≤ 480px ─────────────────── */
+@media (max-width: 480px) {
+
+    /* Container */
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* Typography */
+    h1,
+    .hero-headline,
+    .hero-headline-large {
+        font-size: 2rem !important;
+    }
+
+    h2,
+    .section-title,
+    .cta-headline {
+        font-size: 1.5rem !important;
+    }
+
+    /* Stats → 1 column */
+    .marketing-layout .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .marketing-layout .stat-number {
+        font-size: 2rem;
+    }
+
+    /* Footer → 1 column */
+    .marketing-layout .footer-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Section padding */
+    .marketing-layout .section-padding {
+        padding: 2.5rem 0;
+    }
+
+    .marketing-layout .how-it-works,
+    .marketing-layout .testimonials,
+    .marketing-layout .faq {
+        padding: 3rem 0;
+    }
+
+    /* Hero padding */
+    .marketing-layout .hero {
+        padding: 100px 0 40px;
+    }
+
+    .hero-centered-section {
+        padding: 100px 0 50px;
+    }
+
+    .about-layout .hero-centered {
+        padding: 100px 0 40px;
+    }
+
+    /* Testimonial */
+    .marketing-layout .testimonial-card {
+        padding: 2rem 1.25rem;
+    }
+
+    .marketing-layout .testimonial-text {
+        font-size: 1rem;
+    }
+
+    /* CTA */
+    .marketing-layout .cta-card {
+        padding: 2.5rem 1.25rem;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-outline,
+    .btn-lg,
+    .btn-glass {
+        padding: 0.9rem 1.5rem !important;
+        font-size: 0.95rem !important;
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+    /* Override: inline buttons in nav shouldn't go full-width */
+    .nav-right .btn-primary,
+    .mobile-menu-overlay .btn-primary {
+        width: auto;
+        display: inline-block;
+    }
+
+    /* Auth Cards */
+    .auth-card,
+    .login-card,
+    .signup-card {
+        padding: 1.5rem !important;
+        border-radius: 16px !important;
+        margin: 0 0.5rem;
+    }
+
+    /* Feature Cards */
+    .marketing-layout .feature-card {
+        padding: 1.75rem 1.25rem;
+    }
+
+    /* Glass Cards (pricing, contact, etc.) */
+    .glass-card {
+        padding: 1.5rem !important;
+        border-radius: 16px !important;
+    }
+
+    /* Step Cards */
+    .marketing-layout .step-card {
+        padding: 2.5rem 1.25rem 1.75rem;
+    }
+
+    /* Doc article code blocks */
+    .code-block {
+        padding: 1.25rem !important;
+        font-size: 0.85rem !important;
+        border-radius: 10px !important;
+    }
+
+    /* Blog hero */
+    .blog-hero {
+        padding: 3rem 0 2rem;
+    }
+
+    .blog-hero h1 {
+        font-size: 1.75rem !important;
+    }
+
+    /* Dashboard */
+    .content-scroll-area {
+        padding: 1rem;
+    }
+
+    .top-bar {
+        padding: 0 0.75rem;
+    }
+
+    /* Home2 bento */
+    .bento-card {
+        padding: 1rem;
+        min-height: 140px;
+    }
+
+    /* Logo flex */
+    .logo-flex {
+        gap: 1.5rem;
+    }
+
+    .logo-text {
+        font-size: 1.1rem;
+    }
+
+    /* Pill Badge */
+    .pill-badge {
+        font-size: 0.75rem;
+        padding: 5px 12px;
+    }
+
+    /* Footer */
+    .marketing-layout .footer {
+        padding: 3rem 0 2rem;
+    }
+
+    .footer-socials {
+        gap: 1rem;
+    }
+}
+
+/* ── 5. VERY SMALL MOBILE ≤ 360px ────────────── */
+@media (max-width: 360px) {
+
+    .container {
+        padding: 0 0.875rem;
+    }
+
+    h1,
+    .hero-headline,
+    .hero-headline-large {
+        font-size: 1.75rem !important;
+    }
+
+    h2,
+    .section-title {
+        font-size: 1.35rem !important;
+    }
+
+    .marketing-layout .hero {
+        padding: 90px 0 35px;
+    }
+
+    .hero-centered-section {
+        padding: 90px 0 40px;
+    }
+
+    .glass-card {
+        padding: 1.25rem !important;
+    }
+
+    .marketing-layout .feature-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .blog-hero h1 {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* ── 6. NAVBAR SPECIFIC — ≤ 768px ────────────── */
+@media (max-width: 768px) {
+
+    .marketing-layout .navbar {
+        height: 65px;
+    }
+
+    .marketing-layout .brand-text {
+        font-size: 1.4rem;
+    }
+
+    .marketing-layout .navbar-logo {
+        height: 34px;
+        width: 34px;
+    }
+
+    /* Auth dropdown: fixed positioning on mobile.
+       Navbar is 65px tall on mobile (set above).
+       Use position: fixed so dropdown escapes any parent
+       overflow/stacking-context and is always fully visible. */
+    .auth-dropdown-menu {
+        position: fixed !important;
+        top: 72px !important;
+        /* 65px navbar + 7px gap */
+        right: 12px !important;
+        left: auto !important;
+        width: calc(100vw - 24px) !important;
+        max-width: 300px !important;
+        z-index: 9999 !important;
+    }
+}
+
+/* ── 7. ABOUT PAGE — IMAGE FIX ───────────────── */
+@media (max-width: 768px) {
+    .about-layout .mission-image img {
+        max-height: 350px;
+        object-fit: cover;
+    }
+}
+
+/* ── 8. CONTACT PAGE — GRID FIX ──────────────── */
+@media (max-width: 768px) {
+
+    /* The contact 2-col grid */
+    section.section-padding.container>div[style*="grid-template-columns: 1fr 1.2fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+}
+
+/* ── 9. PRICING — FEATURED CARD ──────────────── */
+@media (max-width: 768px) {
+
+    /* Remove scale on featured pricing card */
+    .glass-card[style*="transform: scale"] {
+        transform: none !important;
+    }
+}
+
+/* ── 10. DASHBOARD — RESPONSIVE ──────────────── */
+@media (max-width: 768px) {
+    .layout-container {
+        overflow: auto;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .stats-grid,
+    .stats-grid-dashboard {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ── 11. SETTINGS PAGE — RESPONSIVE ──────────── */
+@media (max-width: 768px) {
+
+    /* Tabs wrap on mobile */
+    [class*="settings"] .tabs,
+    [class*="tab-list"] {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}
+
+/* ── 12. AUTH PAGES — RESPONSIVE ─────────────── */
+@media (max-width: 768px) {
+
+    /* Two-column auth form grids → single column */
+    [style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Ensure inputs don't overflow */
+    input,
+    textarea,
+    select {
+        max-width: 100%;
+    }
+}
+
+/* ── 13. INLINE STYLE OVERRIDES — CRITICAL ────── */
+/* These target common inline `style` patterns in HTML files */
+
+/* 
+   About mission-vision inline column override
+   (inline style has `grid-template-columns: 1.2fr 1fr; gap: 6rem`)
+*/
+@media (max-width: 768px) {
+    .about-page-layout [style*="grid-template-columns: 1.2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    /* Docs feature grid */
+    .feature-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+    }
+}
+
+/* ── 14. GLOBAL OVERFLOW GUARD ───────────────── */
+/* Prevent any element from causing horizontal scroll */
+@media (max-width: 768px) {
+
+    .marketing-layout,
+    .marketing-layout main,
+    .marketing-layout section,
+    .marketing-layout .container {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Inline wide inline-block items */
+    [style*="max-width: 900px"],
+    [style*="max-width: 800px"],
+    [style*="max-width: 700px"] {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* ── 15. UTILITIES ───────────────────────────── */
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .show-mobile {
+        display: none !important;
+    }
+}
+
+/* ── 16. STARTUP PAGE — COMPACT FEATURE GRID ─── */
+@media (max-width: 1024px) {
+    .feature-grid-compact {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .feature-grid-compact {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .feature-card-compact {
+        padding: 1.25rem !important;
+    }
+}
+
+/* ── 17. DOCUMENTATION — SIDEBAR ─────────────── */
+@media (max-width: 1024px) {
+    .docs-sidebar {
+        display: none !important;
+    }
+
+    .docs-main {
+        max-width: 100% !important;
+        padding: 4rem 2rem !important;
+    }
+
+    .docs-page-container {
+        margin-top: 65px;
+    }
+}
+
+@media (max-width: 480px) {
+    .docs-main {
+        padding: 2rem 1rem !important;
+    }
+
+    .docs-article h1 {
+        font-size: 1.75rem !important;
+    }
+
+    .code-block,
+    pre,
+    code {
+        font-size: 0.8rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ── 18. CAREERS PAGE — JOB GRID ─────────────── */
+@media (max-width: 640px) {
+    .job-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ── 19. HOME INDEX — WHAT WE DO SECTION ────── */
+/* Overrides inline `grid-template-columns: 1fr 1fr` with gap: 4rem */
+@media (max-width: 768px) {
+    .grid-2[style] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+}
+
+/* ── 20. SMOOTH SCROLL FIX ───────────────────── */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Ensure main content isn't clipped under fixed navbar */
+    body>.marketing-layout>main {
+        padding-top: 0;
+    }
+}

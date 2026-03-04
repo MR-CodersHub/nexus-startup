@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security | Nexus</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .page-header {
+            padding: 8rem 0 4rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15), transparent 50%);
+        }
+
+        .policy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 6rem;
+        }
+
+        .policy-section {
+            margin-bottom: 3rem;
+        }
+
+        .policy-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .policy-section p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .policy-section ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .policy-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../src/js/main.js"></script>
+        <script src="../../src/js/auth.js"></script>
+
+        <main>
+            <div class="page-header">
+                <div class="container">
+                    <h1 class="hero-headline">Security at <span style="color: var(--secondary);">Nexus</span></h1>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Enterprise-grade security, built in from day
+                        one.
+                    </p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="policy-content">
+                    <div class="highlight-box">
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Security First</h3>
+                        <p style="margin-bottom: 0;">We maintain industry-standard security certifications and undergo
+                            regular
+                            penetration testing to ensure your data remains safe.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h2>1. Infrastructure Security</h2>
+                        <p>Our infrastructure is hosted on world-class cloud providers with robust physical and network
+                            security. We use multiple availability zones for high availability and redundancy.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h2>2. Data Encryption</h2>
+                        <p>All data is encrypted in transit using TLS 1.2+ and at rest using AES-256 encryption. Key
+                            management
+                            is handled through secure hardware security modules (HSMs).</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h2>3. Access Control</h2>
+                        <p>We employ strict access controls based on the principle of least privilege. All employee
+                            access
+                            is
+                            logged and audited regularly. Two-factor authentication is enforced for all internal
+                            systems.
+                        </p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h2>4. Incident Response</h2>
+                        <p>We have a dedicated security team available 24/7 to respond to security alerts and events.
+                            Our
+                            incident response plan is tested and updated regularly.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h2>5. Compliance</h2>
+                        <p>Nexus is SOC 2 Type II compliant and GDPR ready. We are committed to maintaining the highest
+                            standards of compliance.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

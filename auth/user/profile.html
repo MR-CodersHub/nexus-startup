@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Nexus</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <link rel="stylesheet" href="../../src/css/base/tokens.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .profile-page-wrapper {
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            /* Vertical centering */
+            justify-content: center;
+            background: #0f172a;
+        }
+
+        .profile-card-simple {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .avatar-simple {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-info-section {
+            text-align: left;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+            transition: 0.2s;
+        }
+
+        .btn-action:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-logout {
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body class="dark-theme">
+    <div id="loading-overlay">
+        <div style="color: #6366f1;">Loading Profile...</div>
+    </div>
+
+    <main class="profile-page-wrapper container">
+        <div class="profile-card-simple">
+            <div class="avatar-simple" id="profile-avatar-char">U</div>
+            <h1 style="color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">User Profile</h1>
+
+            <div class="user-info-section">
+                <div class="info-row">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value" id="profile-display-name">...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email Address</span>
+                    <span class="info-value" id="profile-display-email">...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">User ID</span>
+                    <span class="info-value" id="profile-display-id"
+                        style="font-family: monospace; color: var(--primary-light);">...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Account Role</span>
+                    <span class="info-value" id="profile-display-role">...</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <button onclick="window.location.href=Auth.getDashboardPath()" class="btn-action">
+                    <i data-lucide="layout-dashboard" style="width: 18px;"></i> Return to Dashboard
+                </button>
+                <button onclick="Auth.logout()" class="btn-action btn-logout">
+                    <i data-lucide="log-out" style="width: 18px;"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../src/js/main.js"></script>
+    <script src="../../src/js/auth.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkAuth = setInterval(() => {
+                if (typeof Auth !== 'undefined' && Auth.state) {
+                    clearInterval(checkAuth);
+                    if (!Auth.state.isLoggedIn) { window.location.href = '../../auth/user/user-login.html'; return; }
+
+                    const user = Auth.state.data;
+                    const role = Auth.state.role || 'user';
+
+                    document.getElementById('profile-display-name').textContent = user.name || 'Anonymous User';
+                    document.getElementById('profile-display-email').textContent = user.email || 'N/A';
+                    document.getElementById('profile-display-id').textContent = user.id || 'N/A';
+                    document.getElementById('profile-display-role').textContent = role.charAt(0).toUpperCase() + role.slice(1);
+                    document.getElementById('profile-avatar-char').textContent = (user.name || 'U').charAt(0).toUpperCase();
+
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    if (window.lucide) lucide.createIcons();
+                }
+            }, 50);
+        });
+    </script>
+</body>
+
+</html>

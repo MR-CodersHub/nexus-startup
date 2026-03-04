@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Nexus</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .careers-hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .job-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .job-card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .job-info h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .job-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .job-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .job-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../src/js/main.js"></script>
+        <script src="../../src/js/auth.js"></script>
+
+        <main>
+            <div class="container">
+                <section class="careers-hero">
+                    <span
+                        style="color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; font-weight: 600;">Join
+                        the Team</span>
+                    <h1 class="hero-headline" style="margin-top: 1rem;">Build the <span
+                            style="color: var(--primary);">Future</span> with Us</h1>
+                    <p style="color: var(--text-muted); max-width: 600px; margin: 1.5rem auto 0; font-size: 1.2rem;">
+                        We're looking for world-class talent to help us democratize software infrastructure. work from
+                        anywhere,
+                        impact everywhere.
+                    </p>
+                </section>
+
+                <section class="section-padding"
+                    style="padding-top: 0; padding-bottom: 6rem; max-width: 900px; margin: 0 auto;">
+                    <div style="margin-bottom: 3rem;">
+                        <h2 style="margin-bottom: 2rem;">Open Positions</h2>
+
+                        <!-- Job 1 -->
+                        <div class="job-card">
+                            <div class="job-info">
+                                <h3>Senior Frontend Engineer</h3>
+                                <div class="job-meta">
+                                    <span><i data-lucide="map-pin" style="width: 14px;"></i> Remote (Global)</span>
+                                    <span><i data-lucide="clock" style="width: 14px;"></i> Full-time</span>
+                                    <span><i data-lucide="banknote" style="width: 14px;"></i> $140k - $220k</span>
+                                </div>
+                            </div>
+                            <a href="./contact.html" class="btn-outline">Apply Now</a>
+                        </div>
+
+                        <!-- Job 2 -->
+                        <div class="job-card">
+                            <div class="job-info">
+                                <h3>Backend Architect</h3>
+                                <div class="job-meta">
+                                    <span><i data-lucide="map-pin" style="width: 14px;"></i> Remote (US/EU)</span>
+                                    <span><i data-lucide="clock" style="width: 14px;"></i> Full-time</span>
+                                    <span><i data-lucide="banknote" style="width: 14px;"></i> $160k - $240k</span>
+                                </div>
+                            </div>
+                            <a href="./contact.html" class="btn-outline">Apply Now</a>
+                        </div>
+
+                        <!-- Job 3 -->
+                        <div class="job-card">
+                            <div class="job-info">
+                                <h3>Product Designer</h3>
+                                <div class="job-meta">
+                                    <span><i data-lucide="map-pin" style="width: 14px;"></i> Remote (Global)</span>
+                                    <span><i data-lucide="clock" style="width: 14px;"></i> Full-time</span>
+                                    <span><i data-lucide="banknote" style="width: 14px;"></i> $110k - $160k</span>
+                                </div>
+                            </div>
+                            <a href="./contact.html" class="btn-outline">Apply Now</a>
+                        </div>
+                        <!-- Job 4 -->
+                        <div class="job-card">
+                            <div class="job-info">
+                                <h3>DevOps Engineer</h3>
+                                <div class="job-meta">
+                                    <span><i data-lucide="map-pin" style="width: 14px;"></i> Remote (Global)</span>
+                                    <span><i data-lucide="clock" style="width: 14px;"></i> Full-time</span>
+                                    <span><i data-lucide="banknote" style="width: 14px;"></i> $130k - $190k</span>
+                                </div>
+                            </div>
+                            <button class="btn-outline">Apply Now</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

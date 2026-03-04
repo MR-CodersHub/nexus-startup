@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Nexus - The Startup Operating System</title>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../../src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* =============================================
+           SERVICES/INDEX.HTML — RESPONSIVE FIXES
+           Tablet: ≤1024px  |  Mobile: ≤768px / ≤480px / ≤360px
+           Desktop (>1024px): UNTOUCHED
+           ============================================= */
+
+        /* Global overflow guard */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* ── Tablet: ≤ 1024px ──────────────────────── */
+        @media (max-width: 1024px) {
+
+            /* Hero heading */
+            .marketing-layout .hero-headline {
+                font-size: 3rem !important;
+                line-height: 1.15 !important;
+                margin-bottom: 1.25rem !important;
+            }
+
+            .marketing-layout .hero-para {
+                font-size: 1.1rem !important;
+            }
+
+            /* Services hero section — navbar-aware padding-top
+               Navbar is fixed at 80px. Hero padding-top must always
+               exceed that so the heading is never clipped underneath */
+            .services-hero {
+                padding-top: 140px !important;
+                padding-bottom: 5rem !important;
+            }
+
+            /* Non-hero section-padding: slightly tighter on tablet */
+            .marketing-layout .section-padding:not(.services-hero) {
+                padding: 4rem 0;
+            }
+
+            /* Grid-3: ensure minimum column never exceeds viewport */
+            .marketing-layout .grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 1.5rem;
+            }
+
+            /* Feature card: smaller padding */
+            .marketing-layout .feature-card {
+                padding: 2rem;
+            }
+
+            /* CTA card */
+            .cta-card {
+                padding: 3rem 2.5rem !important;
+            }
+        }
+
+        /* ── Mobile: ≤ 768px ───────────────────────── */
+        @media (max-width: 768px) {
+
+            /* Services hero: 80px navbar + 30px breathing room */
+            .services-hero {
+                padding-top: 110px !important;
+                padding-bottom: 3.5rem !important;
+            }
+
+            /* Container padding */
+            .container {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            /* Section padding */
+            .marketing-layout .section-padding {
+                padding: 3rem 0;
+            }
+
+            /* Hero heading */
+            .marketing-layout .hero-headline {
+                font-size: 2.25rem !important;
+                line-height: 1.18 !important;
+                word-break: break-word;
+                margin-bottom: 1rem !important;
+            }
+
+            .marketing-layout .hero-para {
+                font-size: 1rem !important;
+                line-height: 1.7 !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* Services grid → 1 column, override minmax */
+            .marketing-layout .grid-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+            }
+
+            /* Feature cards: tighter padding */
+            .marketing-layout .feature-card {
+                padding: 1.75rem 1.5rem !important;
+            }
+
+            /* Card icons */
+            .marketing-layout .feature-card i[data-lucide] {
+                width: 32px !important;
+                height: 32px !important;
+            }
+
+            /* "Service Details" link buttons in cards — full-width on mobile */
+            .marketing-layout .feature-card .btn-outline {
+                display: block !important;
+                width: 100% !important;
+                text-align: center !important;
+                padding: 0.75rem 1rem !important;
+                box-sizing: border-box;
+            }
+
+            /* CTA card */
+            .cta-card {
+                padding: 2rem 1.5rem !important;
+                border-radius: 20px !important;
+            }
+
+            .cta-card h2 {
+                font-size: 1.75rem !important;
+                line-height: 1.25;
+                margin-bottom: 1rem !important;
+            }
+
+            .cta-card p {
+                margin: 1rem 0 2rem !important;
+                font-size: 1rem !important;
+            }
+
+            /* Glass card: ensure it never overflows */
+            .glass-card {
+                max-width: 100%;
+                overflow: hidden;
+            }
+        }
+
+        /* ── Small Mobile: ≤ 480px ─────────────────── */
+        @media (max-width: 480px) {
+
+            .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            /* Services hero: keep above 80px navbar */
+            .services-hero {
+                padding-top: 100px !important;
+                padding-bottom: 3rem !important;
+            }
+
+            .marketing-layout .section-padding {
+                padding: 2.5rem 0;
+            }
+
+            .marketing-layout .hero-headline {
+                font-size: 1.85rem !important;
+            }
+
+            .marketing-layout .hero-para {
+                font-size: 0.95rem !important;
+            }
+
+            .marketing-layout .feature-card {
+                padding: 1.5rem 1.25rem !important;
+            }
+
+            .cta-card {
+                padding: 1.75rem 1.25rem !important;
+                border-radius: 16px !important;
+            }
+
+            .cta-card h2 {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        /* ── Very Small: ≤ 360px ───────────────────── */
+        @media (max-width: 360px) {
+
+            .services-hero {
+                padding-top: 96px !important;
+                padding-bottom: 2.75rem !important;
+            }
+
+            .container {
+                padding-left: 0.875rem !important;
+                padding-right: 0.875rem !important;
+            }
+
+            .marketing-layout .hero-headline {
+                font-size: 1.65rem !important;
+            }
+
+            .marketing-layout .feature-card {
+                padding: 1.25rem 1rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../../src/js/main.js"></script>
+        <script src="../../../src/js/auth.js"></script>
+
+        <main>
+            <!-- Hero -->
+            <section class="section-padding services-hero"
+                style="background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05) 0%, transparent 60%);">
+                <div class="container text-center">
+                    <h1 class="hero-headline" style="font-size: 4rem;">What We Help <span
+                            style="color: var(--primary);">Startups</span> With.</h1>
+                    <p class="hero-para" style="max-width: 800px; margin: 0 auto;">Nexus provides the end-to-end
+                        technical foundation for modern startups. Build, launch, and scale with confidence.</p>
+                </div>
+            </section>
+
+            <!-- Services Grid -->
+            <section class="section-padding container">
+                <div class="grid-3">
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 2rem; color: var(--primary);">
+                            <i data-lucide="layout" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h3>Product Development</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Full-cycle product development from
+                            ideation to launch. We help you build products that users love.</p>
+                        <a href="details.html?service=product-dev" class="btn-outline"
+                            style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">Service
+                            Details &rarr;</a>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 2rem; color: var(--primary);">
+                            <i data-lucide="cpu" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h3>AI / Automation</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Integrate cutting-edge AI and automate
+                            complex workflows to give your startup a competitive edge.</p>
+                        <a href="details.html?service=ai-automation" class="btn-outline"
+                            style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">Service
+                            Details &rarr;</a>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 2rem; color: var(--primary);">
+                            <i data-lucide="rocket" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h3>MVP Building</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Go from zero to one in record time. We
+                            build robust MVPs that are ready for scale and investment.</p>
+                        <a href="details.html?service=mvp-building" class="btn-outline"
+                            style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">Service
+                            Details &rarr;</a>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 2rem; color: var(--primary);">
+                            <i data-lucide="smartphone" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h3>Web & App Development</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">High-performance web and mobile
+                            applications built with modern frameworks and global edge deployment.</p>
+                        <a href="details.html?service=web-app" class="btn-outline"
+                            style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">Service
+                            Details &rarr;</a>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 2rem; color: var(--primary);">
+                            <i data-lucide="trending-up" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h3>Growth & Scaling</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Infrastructure and tools designed for
+                            velocity. We handle the technical bottlenecks so you can focus on growth.</p>
+                        <a href="details.html?service=growth" class="btn-outline"
+                            style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">Service
+                            Details &rarr;</a>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 2rem; color: var(--primary);">
+                            <i data-lucide="shield-check" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h3>Security & Compliance</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Bank-grade security and automated
+                            compliance (SOC2, GDPR) built directly into your platform.</p>
+                        <a href="details.html?service=security" class="btn-outline"
+                            style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">Service
+                            Details &rarr;</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="section-padding container text-center">
+                <div class="cta-card glass-card">
+                    <h2>Need a custom solution?</h2>
+                    <p style="margin: 2rem 0 3rem; color: var(--text-muted);">Our engineering team is ready to help you
+                        tackle your unique challenges.</p>
+                    <a href="../contact.html" class="btn-primary">Contact Our Team</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

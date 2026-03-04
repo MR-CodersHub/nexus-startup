@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | The Operating System for Hypergrowth</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* =============================================
+           INDEX.HTML — HERO & WHAT WE DO
+           Responsive Fixes: Tablet (768px) + Mobile (360–480px)
+           Desktop (>1024px) untouched.
+           ============================================= */
+
+        /* ── Hero Section ─────────────────────────── */
+        @media (max-width: 1024px) {
+            .marketing-layout .hero {
+                padding: 120px 0 60px;
+            }
+
+            .marketing-layout .hero-layout {
+                flex-direction: column;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .marketing-layout .hero-left,
+            .marketing-layout .hero-right {
+                flex: unset;
+                width: 100%;
+            }
+
+            .marketing-layout .hero-headline {
+                font-size: 3rem;
+                line-height: 1.15;
+            }
+
+            .marketing-layout .hero-para {
+                font-size: 1.05rem;
+                max-width: 580px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* Center the CTA button on tablet */
+            .marketing-layout .hero-left .hero-actions {
+                justify-content: center;
+            }
+
+            /* Image container scales to full width */
+            .marketing-layout .hero-image-container {
+                max-width: 520px;
+                margin: 0 auto;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .marketing-layout .hero {
+                padding: 100px 0 50px;
+            }
+
+            .marketing-layout .hero-layout {
+                gap: 2.5rem;
+                padding: 0 20px;
+                /* safe side padding inside container */
+            }
+
+            .marketing-layout .hero-headline {
+                font-size: 2.25rem;
+                line-height: 1.18;
+                letter-spacing: -0.5px;
+                margin-bottom: 1.25rem;
+                word-break: break-word;
+            }
+
+            .marketing-layout .hero-para {
+                font-size: 1rem;
+                line-height: 1.7;
+                margin-bottom: 2rem;
+                max-width: 100%;
+            }
+
+            /* Feature items (Accelerated Growth, Built-in Trust) */
+            .hero-feature-list {
+                text-align: left !important;
+                align-items: flex-start !important;
+            }
+
+            .hero-feature-list>div {
+                text-align: left !important;
+                align-items: flex-start !important;
+                justify-content: flex-start !important;
+            }
+
+            /* Image: full width, maintain border-radius */
+            .marketing-layout .hero-image-container {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .marketing-layout .hero-image {
+                width: 100% !important;
+                border-radius: 20px !important;
+            }
+
+            /* Hero CTA */
+            .marketing-layout .hero-left .hero-actions {
+                justify-content: center;
+                gap: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .marketing-layout .hero {
+                padding: 90px 0 40px;
+            }
+
+            .marketing-layout .hero-layout {
+                gap: 2rem;
+                padding: 0 16px;
+            }
+
+            .marketing-layout .hero-headline {
+                font-size: 1.85rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+
+            .marketing-layout .hero-para {
+                font-size: 0.95rem;
+                line-height: 1.65;
+                margin-bottom: 1.75rem;
+            }
+
+            .marketing-layout .hero-image {
+                border-radius: 16px !important;
+            }
+
+            /* CTA button full-width feel on tiny screens */
+            .marketing-layout .hero-left .hero-actions a {
+                padding: 0.85rem 2rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .marketing-layout .hero-headline {
+                font-size: 1.6rem;
+            }
+
+            .marketing-layout .hero-para {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ── What We Do Section ─────────────────── */
+        @media (max-width: 1024px) {
+
+            /* Collapse 2-col grid into single column */
+            .grid-2 {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 3rem !important;
+            }
+
+            /* The "Trusted by" badge exits absolute flow on tablet */
+            .hero-trust-badge {
+                position: static !important;
+                margin-top: 1.5rem;
+                max-width: 100% !important;
+                border-radius: 12px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Section padding adjustment */
+            section.section-padding.container {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            /* Heading in What We Do */
+            .grid-2 h2 {
+                font-size: 1.85rem !important;
+                margin-bottom: 1rem !important;
+                line-height: 1.25 !important;
+                word-break: break-word;
+            }
+
+            /* Feature list — stack neatly, align left */
+            .hero-feature-list {
+                gap: 1.25rem !important;
+            }
+
+            /* Each feature row */
+            .hero-feature-item {
+                align-items: flex-start !important;
+                gap: 0.875rem !important;
+            }
+
+            /* Keep icons square and non-shrinking */
+            .hero-feature-icon {
+                width: 44px !important;
+                height: 44px !important;
+                min-width: 44px !important;
+                flex-shrink: 0 !important;
+                border-radius: 10px !important;
+            }
+
+            /* Image full-width */
+            .hero-image-col img {
+                border-radius: 16px !important;
+            }
+
+            /* Badge goes static */
+            .hero-trust-badge {
+                position: static !important;
+                margin-top: 1rem !important;
+                max-width: 100% !important;
+                border-radius: 12px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-2 {
+                gap: 2rem !important;
+            }
+
+            .grid-2 h2 {
+                font-size: 1.55rem !important;
+            }
+
+            section.section-padding.container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .hero-feature-list {
+                gap: 1rem !important;
+            }
+
+            .hero-feature-icon {
+                width: 40px !important;
+                height: 40px !important;
+                min-width: 40px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Core Scripts -->
+        <script src="src/js/main.js"></script>
+        <script src="src/js/auth.js"></script>
+
+        <main>
+            <!-- Hero -->
+            <section class="hero">
+                <div class="container hero-layout">
+                    <div class="hero-left">
+                        <h1 class="hero-headline">The Operating System for <span
+                                style="color: var(--primary);">Hypergrowth</span>.</h1>
+                        <p class="hero-para">Stop juggling tools. Nexus unifies your engineering, product, and growth
+                            teams on one streamlined platform designed for velocity.</p>
+                        <div class="hero-actions">
+                            <a href="public/pages/contact.html" class="btn-primary btn-lg">Contact</a>
+                        </div>
+                    </div>
+                    <div class="hero-right">
+                        <div class="hero-image-container">
+                            <img src="assets/img/Home Side IMG.jpg" class="hero-image" alt="Tech Visual"
+                                style="width: 100%; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1);">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What We Do -->
+            <section class="section-padding container">
+                <div class="grid-2"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                    <div>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">We empower the next generation of <span
+                                style="color: var(--primary);">Unicorns</span>.</h2>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                            Nexus is more than just a platform; it's a partner in your growth journey. We provide the
+                            essential infrastructure, security, and analytics that modern startups need to scale rapidly
+                            and securely.
+                        </p>
+                        <div class="hero-feature-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="hero-feature-item" style="display: flex; align-items: center; gap: 1rem;">
+                                <div class="hero-feature-icon"
+                                    style="width: 48px; height: 48px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;">
+                                    <i data-lucide="rocket"></i>
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.25rem;">Accelerated Growth</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.9rem;">Launch MVPs in days, not
+                                        months.</p>
+                                </div>
+                            </div>
+                            <div class="hero-feature-item" style="display: flex; align-items: center; gap: 1rem;">
+                                <div class="hero-feature-icon"
+                                    style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--secondary); flex-shrink: 0;">
+                                    <i data-lucide="shield"></i>
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.25rem;">Built-in Trust</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.9rem;">Security that scales with
+                                        your ambition.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image-col" style="position: relative;">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800" alt="Team Work"
+                            style="width: 100%; border-radius: 24px; box-shadow: var(--shadow-xl);">
+                        <div class="glass hero-trust-badge"
+                            style="position: absolute; bottom: -20px; right: -20px; padding: 1.5rem; border-radius: 16px; max-width: 200px;">
+                            <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Trusted by
+                                early-stage & series A teams.</p>
+                            <div style="display: flex; gap: -5px;">
+                                <div
+                                    style="width: 32px; height: 32px; background: #334155; border-radius: 50%; border: 2px solid var(--bg-main);">
+                                </div>
+                                <div
+                                    style="width: 32px; height: 32px; background: #475569; border-radius: 50%; border: 2px solid var(--bg-main); margin-left: -10px;">
+                                </div>
+                                <div
+                                    style="width: 32px; height: 32px; background: #64748b; border-radius: 50%; border: 2px solid var(--bg-main); margin-left: -10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trusted By -->
+            <section class="logo-cloud">
+                <div class="container">
+                    <div class="logo-grid">
+                        <div class="logo-item">LUMOS AI</div>
+                        <div class="logo-item">FLOW</div>
+                        <div class="logo-item">QUICKSCALE</div>
+                        <div class="logo-item">APEX</div>
+                        <div class="logo-item">VELOCITY</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats -->
+            <section class="container">
+                <div class="stats-grid">
+                    <div class="stat-item"><span class="stat-number">500+</span><span class="stat-label">Fastest Growing
+                            Teams</span></div>
+                    <div class="stat-item"><span class="stat-number">99.9%</span><span class="stat-label">Uptime
+                            SLA</span></div>
+                    <div class="stat-item"><span class="stat-number">100M+</span><span class="stat-label">Daily API
+                            Requests</span></div>
+                    <div class="stat-item"><span class="stat-number">50ms</span><span class="stat-label">Average
+                            Latency</span></div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="how-it-works">
+                <div class="container">
+                    <div class="text-center" style="margin-bottom: 6rem;">
+                        <h2
+                            style="font-size: 3.5rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, #fff 0%, #94a3b8 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                            Engineered for <span
+                                style="color: var(--primary); -webkit-text-fill-color: var(--primary);">Velocity</span>.
+                        </h2>
+                        <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 700px; margin: 0 auto;">Three
+                            simple steps to move from legacy infrastructure to the Nexus edge.</p>
+                    </div>
+                    <div class="grid-3">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <div style="margin-bottom: 2rem; color: var(--primary);">
+                                <i data-lucide="git-branch" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Connect Your Repo</h3>
+                            <p style="color: var(--text-muted); line-height: 1.7;">Sync your GitHub or GitLab. Nexus
+                                automatically detects your framework and optimizes for deployment.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <div style="margin-bottom: 2rem; color: var(--primary);">
+                                <i data-lucide="cpu" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Global Distribution</h3>
+                            <p style="color: var(--text-muted); line-height: 1.7;">One click deploys your code to 300+
+                                edge nodes globally. Your app is now closer to your users.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <div style="margin-bottom: 2rem; color: var(--primary);">
+                                <i data-lucide="trending-up" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Scale Automatically</h3>
+                            <p style="color: var(--text-muted); line-height: 1.7;">Zero-config autoscaling. Handle 10 or
+                                10 million requests with the same rock-solid reliability.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services -->
+            <section class="section-padding container">
+                <div class="text-center" style="margin-bottom: 5rem;">
+                    <h2 style="font-size: 3rem; margin-bottom: 1.5rem;">Everything you need to <span
+                            style="color: var(--primary);">Scale</span>.</h2>
+                    <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+                        From day one to IPO, Nexus provides the technical foundation your startup needs to move fast
+                        without breaking things.
+                    </p>
+                </div>
+                <div class="grid-3">
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 1.5rem; color: var(--primary);">
+                            <i data-lucide="zap" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h3>Instant Deployment</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Deploy code to edge locations
+                            worldwide in seconds with our serverless architecture. Optimized for modern frameworks.</p>
+                        <ul
+                            style="color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check"
+                                    style="width: 16px; height: 16px; color: var(--success);"></i> Global Edge Network
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check"
+                                    style="width: 16px; height: 16px; color: var(--success);"></i> Git-Based Workflow
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 1.5rem; color: var(--primary);">
+                            <i data-lucide="shield-check" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h3>Enterprise Security</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Bank-grade encryption, SOC2
+                            compliance, and automated threat detection built-in. Secure by default, no configuration
+                            needed.</p>
+                        <ul
+                            style="color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check"
+                                    style="width: 16px; height: 16px; color: var(--success);"></i> SOC2 & GDPR Ready
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check"
+                                    style="width: 16px; height: 16px; color: var(--success);"></i> Automated DDoS
+                                Protection</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div style="margin-bottom: 1.5rem; color: var(--primary);">
+                            <i data-lucide="bar-chart-3" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h3>Deep Analytics</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Real-time insights across your
+                            entire stack with AI-driven anomaly detection. Understand your users better than ever.</p>
+                        <ul
+                            style="color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check"
+                                    style="width: 16px; height: 16px; color: var(--success);"></i> Real-time Monitoring
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check"
+                                    style="width: 16px; height: 16px; color: var(--success);"></i> AI Insights</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 4rem;">
+                    <a href="public/pages/services/index.html" class="btn-outline"
+                        style="border: 1px solid var(--border); padding: 0.8rem 2rem; border-radius: 12px;">Explore All
+                        Services</a>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="testimonials section-padding">
+                <div class="container">
+                    <div class="text-center" style="margin-bottom: 4rem;">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Trusted by <span
+                                class="text-primary">Innovators</span></h2>
+                        <p style="color: var(--text-muted); font-size: 1.1rem;">Join thousands of developers building
+                            the future.</p>
+                    </div>
+                    <div class="grid-3">
+                        <div class="testimonial-card glass-card">
+                            <p class="testimonial-text"
+                                style="font-size: 1rem; color: var(--text-main); line-height: 1.6; margin-bottom: 1.5rem;">
+                                "Nexus has completely transformed how our engineering team works. We no longer worry
+                                about infrastructure or scaling. It's like having a world-class DevOps team in your
+                                pocket."
+                            </p>
+                            <div class="author-info" style="display: flex; align-items: center; gap: 1rem;">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&h=200&fit=crop"
+                                    class="author-avatar" alt="Sarah Chen"
+                                    style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);">
+                                <div class="author-details">
+                                    <h4 style="margin: 0; font-size: 1rem;">Sarah Chen</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">CTO, Lumos AI
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card glass-card">
+                            <p class="testimonial-text"
+                                style="font-size: 1rem; color: var(--text-main); line-height: 1.6; margin-bottom: 1.5rem;">
+                                "The performance boost was immediate. Our global users are seeing 50ms latency
+                                regardless of where they are. The automated edge caching is a game changer for us."
+                            </p>
+                            <div class="author-info" style="display: flex; align-items: center; gap: 1rem;">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&h=200&fit=crop"
+                                    class="author-avatar" alt="Marcus Wright"
+                                    style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--secondary);">
+                                <div class="author-details">
+                                    <h4 style="margin: 0; font-size: 1rem;">Marcus Wright</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">Founder, Flow
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card glass-card">
+                            <p class="testimonial-text"
+                                style="font-size: 1rem; color: var(--text-main); line-height: 1.6; margin-bottom: 1.5rem;">
+                                "Security was our top concern. Nexus gave us enterprise-grade protection out of the box.
+                                SOC2 compliance was handled automatically, saving us months of work."
+                            </p>
+                            <div class="author-info" style="display: flex; align-items: center; gap: 1rem;">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&h=200&fit=crop"
+                                    class="author-avatar" alt="Elena Rodriguez"
+                                    style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent);">
+                                <div class="author-details">
+                                    <h4 style="margin: 0; font-size: 1rem;">Elena Rodriguez</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">VP Engineering,
+                                        FinStack</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="section-padding container text-center">
+                <div class="cta-card glass-card">
+                    <h2 style="font-size: 3.5rem; margin-bottom: 1rem;">Ready to build the future?</h2>
+                    <p style="margin: 0 auto 3rem; color: var(--text-muted); font-size: 1.25rem; max-width: 600px;">
+                        Join 500+ high-growth teams building the future on Nexus. Get started for free today.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 1.5rem;">
+                        <a href="auth/user/user-signup.html" class="btn-primary"
+                            style="padding: 1.2rem 3rem; font-size: 1.1rem;">Create Free Account</a>
+                        <a href="public/pages/contact.html" class="btn-outline"
+                            style="padding: 1.2rem 3rem; font-size: 1.1rem; border: 1px solid var(--border); border-radius: 12px;">Contact</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="faq">
+                <div class="container">
+                    <div class="text-center">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Common Questions</h2>
+                        <p style="color: var(--text-muted);">Everything you need to know about Nexus.</p>
+                    </div>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                How does global edge deployment work?
+                                <i data-lucide="chevron-down" class="faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Nexus uses a proprietary edge network with over 300 points of presence globally. When
+                                you deploy, your code and data are replicated across these nodes, ensuring users are
+                                always routed to the nearest available server.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Is Nexus compliant with enterprise security standards?
+                                <i data-lucide="chevron-down" class="faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Yes, Nexus is SOC2 Type II, GDPR, and HIPAA compliant. We provide bank-grade encryption
+                                at rest and in transit, along with automated threat detection and DDoS protection.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Can I migrate my existing infrastructure to Nexus?
+                                <i data-lucide="chevron-down" class="faq-toggle"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Absolutely. We provide automated migration tools for AWS, Google Cloud, and Azure. Our
+                                engineering support team is also available to help with complex enterprise migrations.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+    </div>
+    <script>
+        lucide.createIcons();
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

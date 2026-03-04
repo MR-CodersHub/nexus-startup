@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Nexus - Engineering & Growth Insights</title>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../../src/css/style.css">
+    <link rel="stylesheet" href="../../../src/css/pages/blog.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Global overflow guard — prevents any element from causing horizontal scroll */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../../src/js/main.js"></script>
+
+        <script src="../../../src/js/auth.js"></script>
+
+        <main>
+            <!-- Blog Hero -->
+            <section class="blog-hero">
+                <div class="blog-hero-content">
+                    <h1>Nexus Insights</h1>
+                    <p>Engineering strategies, product frameworks, and growth tactics for the modern startup ecosystem.
+                        Curated by the builders at Nexus.</p>
+                </div>
+            </section>
+
+            <!-- Main Layout -->
+            <div class="blog-layout">
+                <!-- Blog Grid -->
+                <div id="blogGrid" class="blog-posts-grid">
+                    <!-- Post 1 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=800&auto=format&fit=crop"
+                                alt="Scaling Architecture">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Engineering</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                            <h2 class="blog-title">Scaling Nexus to 100M Requests per Day</h2>
+                            <p class="blog-excerpt">How we built our distributed edge network to handle massive traffic
+                                spikes without sweating. A deep dive into our serverless architecture.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 2 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+                                alt="Growth Strategy">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Growth</span>
+                                <span class="read-time">8 min read</span>
+                            </div>
+                            <h2 class="blog-title">Why Founders Fail at Product-Market Fit</h2>
+                            <p class="blog-excerpt">Common pitfalls founders face during the early stages of startup
+                                growth and how to avoid them using data-driven insights.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 3 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
+                                alt="Data Analytics">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Data</span>
+                                <span class="read-time">6 min read</span>
+                            </div>
+                            <h2 class="blog-title">The Future of Real-time Analytics</h2>
+                            <p class="blog-excerpt">Processing petabytes of data in milliseconds. We explore the latest
+                                trends in streaming analytics and warehouse architecture.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 4 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop"
+                                alt="Team Culture">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Culture</span>
+                                <span class="read-time">4 min read</span>
+                            </div>
+                            <h2 class="blog-title">Building a Remote-First Engineering Team</h2>
+                            <p class="blog-excerpt">Lessons learned from scaling our team across 12 time zones while
+                                maintaining velocity and a cohesive culture.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 5 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop"
+                                alt="Product Design">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Product</span>
+                                <span class="read-time">7 min read</span>
+                            </div>
+                            <h2 class="blog-title">Designing for Trust in Fintech</h2>
+                            <p class="blog-excerpt">UX patterns that build confidence. How micro-interactions and
+                                transparency can significantly improve conversion rates.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 6 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c54be3855833?q=80&w=800&auto=format&fit=crop"
+                                alt="Security">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Security</span>
+                                <span class="read-time">9 min read</span>
+                            </div>
+                            <h2 class="blog-title">Zero Trust Architecture Explained</h2>
+                            <p class="blog-excerpt">Moving beyond the perimeter. Implementing comprehensive security
+                                policies that verify every request, regardless of origin.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 7 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
+                                alt="Leadership">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Leadership</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                            <h2 class="blog-title">From CTO to CEO: The Transition</h2>
+                            <p class="blog-excerpt">Navigating the shift from technical decision making to
+                                organizational strategy. A personal journey of growth.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 8 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1551434678-e076c223602b?q=80&w=800&auto=format&fit=crop"
+                                alt="Cloud Ops">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">DevOps</span>
+                                <span class="read-time">6 min read</span>
+                            </div>
+                            <h2 class="blog-title">Kubernetes at Scale: Best Practices</h2>
+                            <p class="blog-excerpt">Managing 500+ clusters efficiently. Tips on resource requests,
+                                auto-scaling, and multi-tenancy.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 9 -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop"
+                                alt="Marketing">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Marketing</span>
+                                <span class="read-time">4 min read</span>
+                            </div>
+                            <h2 class="blog-title">The Art of Storytelling in B2B</h2>
+                            <p class="blog-excerpt">Why narrative matters even for enterprise software. Crafting
+                                compelling stories that resonate with decision makers.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 10 (New) -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
+                                alt="Remote Work">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Culture</span>
+                                <span class="read-time">6 min read</span>
+                            </div>
+                            <h2 class="blog-title">Asynchronous Communication Mastery</h2>
+                            <p class="blog-excerpt">Moving away from real-time meetings. How writing culture improves
+                                clarity
+                                and allows deep work for distributed engineering teams.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 11 (New) -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop"
+                                alt="Strategy">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">Strategy</span>
+                                <span class="read-time">8 min read</span>
+                            </div>
+                            <h2 class="blog-title">The First 90 Days of a CTO</h2>
+                            <p class="blog-excerpt">A framework for new technical leaders. Assessing technical debt,
+                                team
+                                topology, and aligning engineering with business goals.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Post 12 (New) -->
+                    <article class="blog-card">
+                        <div class="blog-thumb">
+                            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop"
+                                alt="AI">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="category-tag">AI</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                            <h2 class="blog-title">Implementing LLMs in Production</h2>
+                            <p class="blog-excerpt">Beyond the hype. Practical patterns for RAG, vector databases, and
+                                ensuring reliability in AI-powered applications.</p>
+                            <a href="#" class="read-more">Read Article <i data-lucide="arrow-right"
+                                    style="width: 16px; height: 16px;"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="blog-sidebar">
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <div class="widget-title">Search</div>
+                        <form class="search-form" onsubmit="event.preventDefault();">
+                            <input type="text" id="searchInput" class="search-input" placeholder="Search articles...">
+                            <i data-lucide="search" class="search-icon"></i>
+                        </form>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <div class="widget-title">Categories</div>
+                        <ul class="categories-list">
+                            <!-- Categories loaded dynamically -->
+                        </ul>
+                    </div>
+
+                    <!-- Recent Posts Widget -->
+                    <div class="sidebar-widget">
+                        <div class="widget-title">Recent Posts</div>
+                        <div class="recent-posts">
+                            <div class="recent-post-item">
+                                <div class="recent-thumb">
+                                    <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=150&auto=format&fit=crop"
+                                        alt="Thumb">
+                                </div>
+                                <div class="recent-info">
+                                    <h4><a href="post.html">Scaling Nexus to 100M Requests</a></h4>
+                                    <span class="recent-date">Feb 12, 2024</span>
+                                </div>
+                            </div>
+                            <div class="recent-post-item">
+                                <div class="recent-thumb">
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=150&auto=format&fit=crop"
+                                        alt="Thumb">
+                                </div>
+                                <div class="recent-info">
+                                    <h4><a href="post.html">Why Founders Fail at PMF</a></h4>
+                                    <span class="recent-date">Feb 10, 2024</span>
+                                </div>
+                            </div>
+                            <div class="recent-post-item">
+                                <div class="recent-thumb">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=150&auto=format&fit=crop"
+                                        alt="Thumb">
+                                </div>
+                                <div class="recent-info">
+                                    <h4><a href="post.html">Future of Analytics</a></h4>
+                                    <span class="recent-date">Feb 08, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+
+            <div id="pagination" class="pagination">
+                <!-- Pagination will be rendered dynamically -->
+            </div>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+    <script src="../../../src/js/data.js"></script>
+    <script src="../../../src/js/blog.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

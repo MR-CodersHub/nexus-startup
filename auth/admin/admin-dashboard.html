@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Nexus</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --bg: #020617;
+            --surface: #0f172a;
+            --s2: #1e293b;
+            --border: rgba(255, 255, 255, 0.07);
+            --primary: #6366f1;
+            --red: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --text: #f8fafc;
+            --muted: #64748b;
+            --sw: 270px
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh
+        }
+
+        .layout {
+            display: flex;
+            width: 100%;
+            min-height: 100vh
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sw);
+            flex-shrink: 0;
+            background: var(--surface);
+            border-right: 1px solid rgba(239, 68, 68, .08);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 200;
+            transition: transform .3s
+        }
+
+        .sidebar.closed {
+            transform: translateX(-100%)
+        }
+
+        .sb-head {
+            padding: 1.4rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: .5rem
+        }
+
+        .brand-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none
+        }
+
+        .brand-row img {
+            height: 32px
+        }
+
+        .bn {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #fff
+        }
+
+        .bn span {
+            color: var(--primary)
+        }
+
+        .admin-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(239, 68, 68, .1);
+            border: 1px solid rgba(239, 68, 68, .25);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: .65rem;
+            font-weight: 700;
+            color: #f87171;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            width: fit-content
+        }
+
+        .sb-nav {
+            flex: 1;
+            padding: .75rem;
+            overflow-y: auto
+        }
+
+        .nl {
+            font-size: .65rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            padding: .6rem .7rem .35rem
+        }
+
+        .ni {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: .6rem .8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--muted);
+            font-size: .88rem;
+            font-weight: 500;
+            transition: all .2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 2px
+        }
+
+        .ni svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0
+        }
+
+        .ni:hover {
+            background: rgba(255, 255, 255, .05);
+            color: #fff
+        }
+
+        .ni.active {
+            background: rgba(99, 102, 241, .15);
+            color: var(--primary);
+            font-weight: 600
+        }
+
+        .sb-foot {
+            padding: .9rem .75rem;
+            border-top: 1px solid var(--border)
+        }
+
+        .lb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: .6rem .8rem;
+            border-radius: 10px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: .88rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all .2s
+        }
+
+        .lb:hover {
+            background: rgba(239, 68, 68, .1);
+            color: var(--red)
+        }
+
+        .lb svg {
+            width: 16px;
+            height: 16px
+        }
+
+        /* Overlay */
+        .ov {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            z-index: 150;
+            backdrop-filter: blur(2px)
+        }
+
+        .ov.show {
+            display: block
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            margin-left: var(--sw);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: margin-left .3s
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(2, 6, 23, .88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 1.4rem;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            gap: 1rem
+        }
+
+        .hbg {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            padding: 7px;
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            transition: all .2s
+        }
+
+        .hbg:hover {
+            background: rgba(255, 255, 255, .05);
+            color: #fff
+        }
+
+        .hbg svg {
+            width: 20px;
+            height: 20px
+        }
+
+        .tb-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex: 1
+        }
+
+        .tb-right {
+            display: flex;
+            align-items: center;
+            gap: .7rem
+        }
+
+        .admin-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .9rem;
+            border: 2px solid rgba(239, 68, 68, .3)
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 1.75rem 1.4rem;
+            max-width: 1300px;
+            width: 100%
+        }
+
+        .page {
+            display: none
+        }
+
+        .page.active {
+            display: block
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border: 1px solid rgba(99, 102, 241, .2);
+            border-radius: 18px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.75rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(99, 102, 241, .06);
+            border-radius: 50%
+        }
+
+        .banner h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            margin-bottom: .3rem
+        }
+
+        .banner p {
+            font-size: .88rem;
+            color: rgba(255, 255, 255, .7)
+        }
+
+        .banner-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(239, 68, 68, .15);
+            border: 1px solid rgba(239, 68, 68, .3);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: .72rem;
+            font-weight: 700;
+            color: #f87171;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            flex-shrink: 0
+        }
+
+        .banner-badge svg {
+            width: 13px;
+            height: 13px
+        }
+
+        /* Stats */
+        .sg {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: .9rem;
+            margin-bottom: 1.75rem
+        }
+
+        .sc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: .9rem;
+            transition: border-color .2s
+        }
+
+        .sc:hover {
+            border-color: rgba(255, 255, 255, .14)
+        }
+
+        .si {
+            width: 44px;
+            height: 44px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .si svg {
+            width: 19px;
+            height: 19px
+        }
+
+        .si.p {
+            background: rgba(99, 102, 241, .15);
+            color: var(--primary)
+        }
+
+        .si.s {
+            background: rgba(16, 185, 129, .15);
+            color: var(--success)
+        }
+
+        .si.w {
+            background: rgba(245, 158, 11, .15);
+            color: var(--warning)
+        }
+
+        .si.d {
+            background: rgba(239, 68, 68, .15);
+            color: var(--red)
+        }
+
+        .sl {
+            font-size: .73rem;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 2px
+        }
+
+        .sv {
+            font-size: 1.4rem;
+            font-weight: 700
+        }
+
+        .trend {
+            font-size: .7rem;
+            color: var(--success);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            margin-top: 2px
+        }
+
+        .trend svg {
+            width: 12px;
+            height: 12px
+        }
+
+        /* Card */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.35rem;
+            margin-bottom: 1.15rem
+        }
+
+        .sh {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: .5rem
+        }
+
+        .st {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700
+        }
+
+        .bsm {
+            padding: .35rem .9rem;
+            border-radius: 8px;
+            font-size: .79rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: var(--s2);
+            color: var(--muted);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .bsm:hover {
+            border-color: var(--primary);
+            color: var(--primary)
+        }
+
+        .bpr {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            color: #fff;
+            padding: .65rem 1.25rem;
+            border-radius: 10px;
+            font-size: .86rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px
+        }
+
+        .bpr:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px)
+        }
+
+        .brd {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border: none;
+            color: #fff;
+            padding: .55rem 1rem;
+            border-radius: 9px;
+            font-size: .82rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .brd:hover {
+            filter: brightness(1.1)
+        }
+
+        /* Table */
+        .tw {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 10px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 540px
+        }
+
+        th {
+            font-size: .7rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            padding: .7rem .9rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border)
+        }
+
+        td {
+            padding: .8rem .9rem;
+            font-size: .85rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        tr:last-child td {
+            border-bottom: none
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .bdg {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: .69rem;
+            font-weight: 700
+        }
+
+        .bdg.dv {
+            background: rgba(16, 185, 129, .1);
+            color: var(--success)
+        }
+
+        .bdg.pr {
+            background: rgba(245, 158, 11, .1);
+            color: var(--warning)
+        }
+
+        .bdg.pe {
+            background: rgba(99, 102, 241, .1);
+            color: var(--primary)
+        }
+
+        .bdg.ca {
+            background: rgba(239, 68, 68, .1);
+            color: var(--red)
+        }
+
+        .bdg.ac {
+            background: rgba(16, 185, 129, .1);
+            color: var(--success)
+        }
+
+        .bdg.bn2 {
+            background: rgba(239, 68, 68, .1);
+            color: var(--red)
+        }
+
+        /* Customers grid */
+        .cg {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: .9rem
+        }
+
+        .cc {
+            background: var(--s2);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: .85rem
+        }
+
+        .cav {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .95rem;
+            flex-shrink: 0
+        }
+
+        .cn {
+            font-size: .88rem;
+            font-weight: 600;
+            margin-bottom: 2px
+        }
+
+        .ce {
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        /* Analytics chart placeholder */
+        .chart-ph {
+            border-radius: 12px;
+            background: var(--s2);
+            border: 1px solid var(--border);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: .88rem;
+            flex-direction: column;
+            gap: .5rem
+        }
+
+        .chart-ph svg {
+            width: 28px;
+            height: 28px;
+            opacity: .4
+        }
+
+        /* Products */
+        .pg {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: .9rem
+        }
+
+        .pc {
+            background: var(--s2);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 1rem
+        }
+
+        .pi2 {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: .75rem
+        }
+
+        .pname {
+            font-size: .88rem;
+            font-weight: 600;
+            margin-bottom: 3px
+        }
+
+        .pprice {
+            font-size: .86rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: .7rem
+        }
+
+        /* Settings */
+        .sr {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .9rem 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .sr:last-child {
+            border-bottom: none
+        }
+
+        .sri h4 {
+            font-size: .9rem;
+            font-weight: 600;
+            margin-bottom: 2px
+        }
+
+        .sri p {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .tgl {
+            width: 42px;
+            height: 22px;
+            border-radius: 11px;
+            background: var(--s2);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            position: relative;
+            transition: background .2s;
+            flex-shrink: 0
+        }
+
+        .tgl.on {
+            background: var(--primary);
+            border-color: var(--primary)
+        }
+
+        .tgl::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #fff;
+            top: 2px;
+            left: 2px;
+            transition: transform .2s
+        }
+
+        .tgl.on::after {
+            transform: translateX(20px)
+        }
+
+        /* Footer */
+        .df {
+            padding: 1.1rem 1.4rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: .76rem;
+            color: var(--muted)
+        }
+
+        /* ── Responsive ── */
+
+        /* Tablet & below: sidebar becomes off-canvas overlay */
+        @media(max-width:1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                box-shadow: none;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 4px 0 32px rgba(0, 0, 0, 0.5);
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .hbg {
+                display: flex;
+                flex-shrink: 0;
+            }
+        }
+
+        /* Tablet 768px */
+        @media(max-width:767px) {
+            .topbar {
+                padding: 0 1rem;
+                gap: 0.65rem;
+            }
+
+            .tb-title {
+                font-size: 1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .content {
+                padding: 1rem 0.85rem;
+                max-width: 100%;
+            }
+
+            .banner {
+                padding: 1.2rem 1.1rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .banner h2 {
+                font-size: 1.2rem;
+            }
+
+            .sg {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .card {
+                padding: 1.1rem;
+            }
+
+            .sh {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            /* analytics two-col stacks to 1 */
+            .two-col-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Mobile 360px */
+        @media(max-width:480px) {
+
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            .layout {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+
+            .main {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+
+            .topbar {
+                padding: 0 0.75rem;
+                height: 56px;
+                gap: 0.5rem;
+            }
+
+            .hbg {
+                padding: 6px;
+                min-width: 36px;
+                min-height: 36px;
+            }
+
+            .tb-title {
+                font-size: 0.9rem;
+            }
+
+            .admin-av {
+                width: 32px;
+                height: 32px;
+                font-size: 0.82rem;
+                flex-shrink: 0;
+            }
+
+            .content {
+                padding: 0.85rem 0.7rem;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .sg {
+                grid-template-columns: 1fr;
+                gap: 0.7rem;
+            }
+
+            .sc {
+                padding: 0.9rem;
+            }
+
+            .banner {
+                padding: 1rem;
+                border-radius: 14px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .banner h2 {
+                font-size: 1.05rem;
+            }
+
+            .banner p {
+                font-size: 0.82rem;
+            }
+
+            .banner-badge {
+                font-size: 0.66rem;
+            }
+
+            .card {
+                padding: 0.9rem 0.85rem;
+                border-radius: 12px;
+            }
+
+            .sh {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .st {
+                font-size: 0.95rem;
+            }
+
+            /* Tables: horizontal scroll */
+            .tw {
+                border-radius: 8px;
+            }
+
+            table {
+                min-width: 420px;
+            }
+
+            th,
+            td {
+                padding: 0.55rem 0.6rem;
+                font-size: 0.76rem;
+            }
+
+            /* Products grid: 1 col on tiny */
+            .pg {
+                grid-template-columns: 1fr;
+            }
+
+            .cg {
+                grid-template-columns: 1fr;
+            }
+
+            .sr {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .df {
+                font-size: 0.72rem;
+                padding: 0.9rem 0.75rem;
+            }
+
+            /* Analytics inline two-col grid */
+            .two-col-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ov" id="ov" onclick="closeSB()"></div>
+    <div class="layout">
+        <aside class="sidebar" id="sb">
+            <div class="sb-head">
+                <a href="../../index.html" class="brand-row">
+                    <img src="../../assets/images/logo.png" alt="Nexus" onerror="this.style.display='none'">
+                    <span class="bn"><span>NEX</span>US</span>
+                </a>
+                <div class="admin-pill"><i data-lucide="shield-check" style="width:11px;height:11px"></i> Admin Panel
+                </div>
+            </div>
+            <nav class="sb-nav">
+                <div class="nl">Dashboard</div>
+                <button class="ni active" id="ni-overview" onclick="go('overview',this)"><i
+                        data-lucide="layout-dashboard"></i> Overview</button>
+                <button class="ni" id="ni-products" onclick="go('products',this)"><i data-lucide="package"></i> Manage
+                    Products</button>
+                <button class="ni" id="ni-orders" onclick="go('orders',this)"><i data-lucide="shopping-cart"></i>
+                    Orders</button>
+                <button class="ni" id="ni-customers" onclick="go('customers',this)"><i data-lucide="users"></i>
+                    Customers</button>
+                <button class="ni" id="ni-analytics" onclick="go('analytics',this)"><i data-lucide="bar-chart-2"></i>
+                    Analytics</button>
+                <div class="nl" style="margin-top:.5rem">System</div>
+                <button class="ni" id="ni-settings" onclick="go('settings',this)"><i data-lucide="settings"></i>
+                    Settings</button>
+            </nav>
+            <div class="sb-foot">
+                <button class="lb" onclick="doLogout()"><i data-lucide="log-out"></i> Sign Out</button>
+            </div>
+        </aside>
+
+        <div class="main" id="main">
+            <header class="topbar">
+                <button class="hbg" onclick="toggleSB()"
+                    style="flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 34px; height: 34px;">
+                    <span
+                        style="display: block; width: 18px; height: 2px; background-color: currentColor; border-radius: 2px;"></span>
+                    <span
+                        style="display: block; width: 18px; height: 2px; background-color: currentColor; border-radius: 2px;"></span>
+                    <span
+                        style="display: block; width: 18px; height: 2px; background-color: currentColor; border-radius: 2px;"></span>
+                </button>
+                <span class="tb-title" id="tbt">Overview</span>
+                <div class="tb-right">
+                    <div class="admin-av" id="av">A</div>
+                </div>
+            </header>
+
+            <div class="content">
+
+                <!-- Overview -->
+                <div class="page active" id="page-overview">
+                    <div class="banner">
+                        <div>
+                            <h2>Admin Control Panel 🛡️</h2>
+                            <p>Manage your platform, users, and real-time analytics.</p>
+                        </div>
+                        <div class="banner-badge"><i data-lucide="shield-check"></i> Administrator</div>
+                    </div>
+
+                    <div class="sg">
+                        <div class="sc">
+                            <div class="si s"><i data-lucide="users"></i></div>
+                            <div>
+                                <div class="sl">Total Users</div>
+                                <div class="sv">1,248</div>
+                                <div class="trend"><i data-lucide="trending-up"></i> +12% this month</div>
+                            </div>
+                        </div>
+                        <div class="sc">
+                            <div class="si p"><i data-lucide="shopping-cart"></i></div>
+                            <div>
+                                <div class="sl">Total Orders</div>
+                                <div class="sv">3,891</div>
+                                <div class="trend"><i data-lucide="trending-up"></i> +8% this month</div>
+                            </div>
+                        </div>
+                        <div class="sc">
+                            <div class="si w"><i data-lucide="package"></i></div>
+                            <div>
+                                <div class="sl">Products</div>
+                                <div class="sv">247</div>
+                                <div class="trend"><i data-lucide="trending-up"></i> +3 new</div>
+                            </div>
+                        </div>
+                        <div class="sc">
+                            <div class="si d"><i data-lucide="dollar-sign"></i></div>
+                            <div>
+                                <div class="sl">Revenue</div>
+                                <div class="sv">$84K</div>
+                                <div class="trend"><i data-lucide="trending-up"></i> +22% this month</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="sh"><span class="st">Recent Orders</span><button class="bsm"
+                                onclick="go('orders',document.getElementById('ni-orders'))">View All</button></div>
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Item</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#NX-10124</td>
+                                        <td>John Doe</td>
+                                        <td>Nexus Pro Plan</td>
+                                        <td>$49.00</td>
+                                        <td><span class="bdg dv">Delivered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10123</td>
+                                        <td>Sara Kim</td>
+                                        <td>Enterprise Suite</td>
+                                        <td>$199.00</td>
+                                        <td><span class="bdg pr">Processing</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10122</td>
+                                        <td>Alex Ray</td>
+                                        <td>Starter Bundle</td>
+                                        <td>$19.00</td>
+                                        <td><span class="bdg pe">Pending</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10121</td>
+                                        <td>Maria Lopez</td>
+                                        <td>API Credits</td>
+                                        <td>$29.00</td>
+                                        <td><span class="bdg dv">Delivered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10120</td>
+                                        <td>Tom Wang</td>
+                                        <td>Security Shield</td>
+                                        <td>$25.00</td>
+                                        <td><span class="bdg ca">Cancelled</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div class="page" id="page-products">
+                    <div class="sh" style="margin-bottom:1.35rem">
+                        <span class="st" style="font-size:1.2rem">Manage Products</span>
+                        <button class="bpr"><i data-lucide="plus" style="width:15px;height:15px"></i> Add
+                            Product</button>
+                    </div>
+                    <div class="pg">
+                        <div class="pc">
+                            <div class="pi2">🚀</div>
+                            <div class="pname">Nexus Pro Plan</div>
+                            <div class="pprice">$49/mo</div>
+                            <div style="display:flex;gap:.5rem"><button class="bsm"
+                                    style="font-size:.75rem">Edit</button><button class="bsm"
+                                    style="font-size:.75rem;color:var(--red);border-color:rgba(239,68,68,.25)">Delete</button>
+                            </div>
+                        </div>
+                        <div class="pc">
+                            <div class="pi2">⚡</div>
+                            <div class="pname">Starter Bundle</div>
+                            <div class="pprice">$19/mo</div>
+                            <div style="display:flex;gap:.5rem"><button class="bsm"
+                                    style="font-size:.75rem">Edit</button><button class="bsm"
+                                    style="font-size:.75rem;color:var(--red);border-color:rgba(239,68,68,.25)">Delete</button>
+                            </div>
+                        </div>
+                        <div class="pc">
+                            <div class="pi2">🏢</div>
+                            <div class="pname">Enterprise Suite</div>
+                            <div class="pprice">$199/mo</div>
+                            <div style="display:flex;gap:.5rem"><button class="bsm"
+                                    style="font-size:.75rem">Edit</button><button class="bsm"
+                                    style="font-size:.75rem;color:var(--red);border-color:rgba(239,68,68,.25)">Delete</button>
+                            </div>
+                        </div>
+                        <div class="pc">
+                            <div class="pi2">🔒</div>
+                            <div class="pname">Security Shield</div>
+                            <div class="pprice">$25/mo</div>
+                            <div style="display:flex;gap:.5rem"><button class="bsm"
+                                    style="font-size:.75rem">Edit</button><button class="bsm"
+                                    style="font-size:.75rem;color:var(--red);border-color:rgba(239,68,68,.25)">Delete</button>
+                            </div>
+                        </div>
+                        <div class="pc">
+                            <div class="pi2">📊</div>
+                            <div class="pname">Analytics Dash</div>
+                            <div class="pprice">$15/mo</div>
+                            <div style="display:flex;gap:.5rem"><button class="bsm"
+                                    style="font-size:.75rem">Edit</button><button class="bsm"
+                                    style="font-size:.75rem;color:var(--red);border-color:rgba(239,68,68,.25)">Delete</button>
+                            </div>
+                        </div>
+                        <div class="pc">
+                            <div class="pi2">🌐</div>
+                            <div class="pname">Global CDN</div>
+                            <div class="pprice">$29/mo</div>
+                            <div style="display:flex;gap:.5rem"><button class="bsm"
+                                    style="font-size:.75rem">Edit</button><button class="bsm"
+                                    style="font-size:.75rem;color:var(--red);border-color:rgba(239,68,68,.25)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders -->
+                <div class="page" id="page-orders">
+                    <div class="sh" style="margin-bottom:1.35rem">
+                        <span class="st" style="font-size:1.2rem">All Orders</span>
+                        <span style="font-size:.8rem;color:var(--muted)">3,891 total orders</span>
+                    </div>
+                    <div class="card">
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Product</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#NX-10124</td>
+                                        <td>John Doe</td>
+                                        <td>Nexus Pro Plan</td>
+                                        <td>Mar 03, 2026</td>
+                                        <td>$49.00</td>
+                                        <td><span class="bdg dv">Delivered</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10123</td>
+                                        <td>Sara Kim</td>
+                                        <td>Enterprise Suite</td>
+                                        <td>Mar 02, 2026</td>
+                                        <td>$199.00</td>
+                                        <td><span class="bdg pr">Processing</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10122</td>
+                                        <td>Alex Ray</td>
+                                        <td>Starter Bundle</td>
+                                        <td>Mar 01, 2026</td>
+                                        <td>$19.00</td>
+                                        <td><span class="bdg pe">Pending</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10121</td>
+                                        <td>Maria Lopez</td>
+                                        <td>API Credits</td>
+                                        <td>Feb 28, 2026</td>
+                                        <td>$29.00</td>
+                                        <td><span class="bdg dv">Delivered</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10120</td>
+                                        <td>Tom Wang</td>
+                                        <td>Security Shield</td>
+                                        <td>Feb 27, 2026</td>
+                                        <td>$25.00</td>
+                                        <td><span class="bdg ca">Cancelled</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#NX-10119</td>
+                                        <td>Priya Singh</td>
+                                        <td>Analytics Dash</td>
+                                        <td>Feb 25, 2026</td>
+                                        <td>$15.00</td>
+                                        <td><span class="bdg dv">Delivered</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customers -->
+                <div class="page" id="page-customers">
+                    <div class="sh" style="margin-bottom:1.35rem">
+                        <span class="st" style="font-size:1.2rem">Customers</span>
+                        <span style="font-size:.8rem;color:var(--muted)">1,248 registered users</span>
+                    </div>
+                    <div class="card" style="margin-bottom:1.15rem">
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Joined</th>
+                                        <th>Orders</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>john@nexus.com</td>
+                                        <td>Jan 15, 2026</td>
+                                        <td>12</td>
+                                        <td><span class="bdg ac">Active</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sara Kim</td>
+                                        <td>sara@nexus.com</td>
+                                        <td>Jan 20, 2026</td>
+                                        <td>8</td>
+                                        <td><span class="bdg ac">Active</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alex Ray</td>
+                                        <td>alex@nexus.com</td>
+                                        <td>Feb 01, 2026</td>
+                                        <td>4</td>
+                                        <td><span class="bdg ac">Active</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Maria Lopez</td>
+                                        <td>maria@nexus.com</td>
+                                        <td>Feb 10, 2026</td>
+                                        <td>6</td>
+                                        <td><span class="bdg ac">Active</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tom Wang</td>
+                                        <td>tom@nexus.com</td>
+                                        <td>Feb 18, 2026</td>
+                                        <td>2</td>
+                                        <td><span class="bdg bn2">Banned</span></td>
+                                        <td><button class="bsm"
+                                                style="font-size:.73rem;padding:.25rem .65rem">View</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics -->
+                <div class="page" id="page-analytics">
+                    <div class="sh" style="margin-bottom:1.35rem"><span class="st"
+                            style="font-size:1.2rem">Analytics</span></div>
+                    <div class="sg">
+                        <div class="sc">
+                            <div class="si s"><i data-lucide="eye"></i></div>
+                            <div>
+                                <div class="sl">Page Views</div>
+                                <div class="sv">84.2K</div>
+                                <div class="trend"><i data-lucide="trending-up"></i> +18%</div>
+                            </div>
+                        </div>
+                        <div class="sc">
+                            <div class="si p"><i data-lucide="mouse-pointer-click"></i></div>
+                            <div>
+                                <div class="sl">Conversions</div>
+                                <div class="sv">3.8%</div>
+                                <div class="trend"><i data-lucide="trending-up"></i> +0.5%</div>
+                            </div>
+                        </div>
+                        <div class="sc">
+                            <div class="si w"><i data-lucide="timer"></i></div>
+                            <div>
+                                <div class="sl">Avg Session</div>
+                                <div class="sv">4m 22s</div>
+                            </div>
+                        </div>
+                        <div class="sc">
+                            <div class="si d"><i data-lucide="user-check"></i></div>
+                            <div>
+                                <div class="sl">New Signups</div>
+                                <div class="sv">142</div>
+                                <div class="trend"><i data-lucide="trending-up"></i> +29%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="sh"><span class="st">Revenue Overview</span><button class="bsm">Last 30
+                                Days</button></div>
+                        <div class="chart-ph">
+                            <i data-lucide="bar-chart-2"></i>
+                            <span>Interactive chart coming soon</span>
+                            <span style="font-size:.75rem;color:var(--muted)">Revenue: $84,320 | Growth: +22%</span>
+                        </div>
+                    </div>
+                    <div class="two-col-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+                        <div class="card" style="margin-bottom:0">
+                            <div class="sh" style="margin-bottom:.75rem"><span class="st" style="font-size:.93rem">Top
+                                    Products</span></div>
+                            <div style="font-size:.85rem;display:flex;flex-direction:column;gap:.5rem">
+                                <div style="display:flex;justify-content:space-between"><span>Nexus Pro Plan</span><span
+                                        style="color:var(--primary);font-weight:600">38%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>Enterprise
+                                        Suite</span><span style="color:var(--primary);font-weight:600">27%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>Starter Bundle</span><span
+                                        style="color:var(--primary);font-weight:600">19%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>API Credits</span><span
+                                        style="color:var(--primary);font-weight:600">11%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>Other</span><span
+                                        style="color:var(--muted);font-weight:600">5%</span></div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-bottom:0">
+                            <div class="sh" style="margin-bottom:.75rem"><span class="st"
+                                    style="font-size:.93rem">Traffic Sources</span></div>
+                            <div style="font-size:.85rem;display:flex;flex-direction:column;gap:.5rem">
+                                <div style="display:flex;justify-content:space-between"><span>Organic Search</span><span
+                                        style="color:var(--success);font-weight:600">44%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>Direct</span><span
+                                        style="color:var(--success);font-weight:600">28%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>Referral</span><span
+                                        style="color:var(--success);font-weight:600">16%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>Social Media</span><span
+                                        style="color:var(--success);font-weight:600">9%</span></div>
+                                <div style="display:flex;justify-content:space-between"><span>Email</span><span
+                                        style="color:var(--muted);font-weight:600">3%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="page" id="page-settings">
+                    <div class="sh" style="margin-bottom:1.35rem"><span class="st" style="font-size:1.2rem">System
+                            Settings</span></div>
+                    <div class="card" style="margin-bottom:1rem">
+                        <div class="st" style="margin-bottom:.9rem;font-size:.93rem">Platform</div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>Maintenance Mode</h4>
+                                <p>Temporarily disable public access</p>
+                            </div>
+                            <div class="tgl" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>User Registrations</h4>
+                                <p>Allow new users to sign up</p>
+                            </div>
+                            <div class="tgl on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>Email Verification Required</h4>
+                                <p>Force email verification on signup</p>
+                            </div>
+                            <div class="tgl on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-bottom:1rem">
+                        <div class="st" style="margin-bottom:.9rem;font-size:.93rem">Security & Audit</div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>Admin 2FA Required</h4>
+                                <p>Enforce two-factor for all admins</p>
+                            </div>
+                            <div class="tgl on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>Audit Logging</h4>
+                                <p>Log all admin actions</p>
+                            </div>
+                            <div class="tgl on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>Rate Limiting</h4>
+                                <p>Limit API requests per user</p>
+                            </div>
+                            <div class="tgl on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="st" style="margin-bottom:.9rem;font-size:.93rem">Danger Zone</div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>Clear All Sessions</h4>
+                                <p>Force logout all users immediately</p>
+                            </div><button class="brd"><i data-lucide="log-out" style="width:14px;height:14px"></i> Clear
+                                Sessions</button>
+                        </div>
+                        <div class="sr">
+                            <div class="sri">
+                                <h4>Reset Platform Data</h4>
+                                <p>This action is irreversible</p>
+                            </div><button class="brd"><i data-lucide="trash-2" style="width:14px;height:14px"></i>
+                                Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <footer class="df">&copy; 2026 <strong>Nexus</strong> — Admin Panel &nbsp; | &nbsp; All rights reserved.
+            </footer>
+        </div>
+    </div>
+
+    <script src="../../src/js/auth.js"></script>
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof Auth !== 'undefined') {
+                if (!Auth.state.isLoggedIn) { window.location.href = 'admin-login.html'; return; }
+                if (Auth.state.role !== 'admin') { window.location.href = '../user/user-login.html'; return; }
+                const u = Auth.state.data;
+                document.getElementById('av').textContent = (u.name || 'A')[0].toUpperCase();
+            }
+            lucide.createIcons();
+        });
+
+        const titles = { overview: 'Overview', products: 'Manage Products', orders: 'Orders', customers: 'Customers', analytics: 'Analytics', settings: 'Settings' };
+        function go(page, btn) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            btn.classList.add('active');
+            document.getElementById('tbt').textContent = titles[page] || page;
+            if (window.innerWidth < 1024) closeSB();
+            lucide.createIcons();
+        }
+        function toggleSB() { document.getElementById('sb').classList.toggle('open'); document.getElementById('ov').classList.toggle('show'); }
+        function closeSB() { document.getElementById('sb').classList.remove('open'); document.getElementById('ov').classList.remove('show'); }
+        function doLogout() { if (typeof Auth !== 'undefined') Auth.logout(); else window.location.href = '../../login.html'; }
+    </script>
+</body>
+
+</html>

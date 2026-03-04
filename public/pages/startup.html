@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus for Startups | Build, Scale, Dominate</title>
+    <link rel="icon" href="../../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <link rel="stylesheet" href="../../src/css/home2.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* =============================================
+           STARTUP.HTML — HOME2 PAGE
+           Base layout styles + full responsive fixes
+           Tablet: 768–1024px  |  Mobile: 360–480px
+           Desktop (>1024px): UNTOUCHED
+           ============================================= */
+
+        /* ── Base: Compact feature grid ──────────── */
+        .feature-grid-compact {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card-compact {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .feature-card-compact:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card-compact h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-card-compact p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .feature-link {
+            font-size: 0.85rem;
+            color: var(--primary-light);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ── Global overflow guard for this page ─── */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* ── Tablet: ≤ 1024px ────────────────────── */
+        @media (max-width: 1024px) {
+
+            /* --- 1. Hero Section --- */
+            .hero-centered-section {
+                padding: 130px 0 70px;
+                min-height: auto;
+            }
+
+            .hero-content-centered {
+                max-width: 100%;
+                padding: 0 2rem;
+            }
+
+            .hero-headline-large {
+                font-size: 3.25rem;
+                line-height: 1.12;
+            }
+
+            .hero-subtext {
+                font-size: 1.1rem;
+                max-width: 100%;
+            }
+
+            /* Buttons side-by-side — slightly smaller */
+            .hero-actions {
+                gap: 12px;
+                margin-bottom: 3rem;
+            }
+
+            .btn-lg {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+
+            /* Hero preview: remove 3D tilt perspective on tablet */
+            .hero-preview-wrapper {
+                perspective: none;
+            }
+
+            /* --- 2. Feature Rows --- */
+            .feature-row,
+            .feature-row.reversed {
+                flex-direction: column;
+                text-align: center;
+                gap: 2.5rem;
+                margin-bottom: 4rem;
+            }
+
+            .feature-list {
+                align-items: center;
+            }
+
+            /* Images in feature rows — full width, no 3D tilt */
+            .visual-card {
+                transform: none !important;
+                border-radius: 20px;
+                width: 100%;
+                max-width: 540px;
+                margin: 0 auto;
+            }
+
+            .visual-card img {
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: cover;
+                border-radius: inherit;
+            }
+
+            /* --- 3. Section Typography --- */
+            .section-title {
+                font-size: 2.25rem !important;
+            }
+
+            .section-subtitle {
+                font-size: 1.05rem;
+            }
+
+            .cta-headline {
+                font-size: 2.5rem !important;
+            }
+
+            .cta-sub {
+                font-size: 1.1rem;
+            }
+
+            /* --- 4. Compact Feature Grid: 2 columns on tablet --- */
+            .feature-grid-compact {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* --- 5. How It Works steps: wrap on tablet --- */
+            .how-it-works[style] {
+                gap: 2.5rem !important;
+                padding: 3rem 0 0 !important;
+            }
+
+            /* --- 6. Logo strip --- */
+            .logo-flex {
+                gap: 2.5rem !important;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo-text {
+                font-size: 1.25rem;
+            }
+
+            /* --- 7. CTA section --- */
+            .cta-section {
+                padding: 70px 0;
+            }
+        }
+
+        /* ── Mobile: ≤ 768px ─────────────────────── */
+        @media (max-width: 768px) {
+
+            /* --- 1. Hero Section --- */
+            .hero-centered-section {
+                padding: 110px 0 60px;
+                overflow: hidden;
+            }
+
+            /* Shrink the glow blob so it doesn't cause layout shift */
+            .hero-glow {
+                width: 400px;
+                height: 400px;
+            }
+
+            .hero-content-centered {
+                padding: 0 1.25rem;
+            }
+
+            .hero-headline-large {
+                font-size: 2.5rem;
+                line-height: 1.15;
+                word-break: break-word;
+            }
+
+            .hero-subtext {
+                font-size: 1rem;
+                margin: 0 auto 2rem;
+                line-height: 1.7;
+            }
+
+            /* Stack CTA buttons vertically */
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.875rem;
+                margin-bottom: 2.5rem;
+                width: 100%;
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-glass {
+                width: 100%;
+                max-width: 320px;
+                text-align: center;
+                justify-content: center;
+                display: flex;
+                padding: 0.9rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Hero preview: no 3D tilt, padding cleanup */
+            .hero-preview-wrapper {
+                perspective: none;
+                margin-top: 1.5rem;
+                transform: none !important;
+            }
+
+            /* Remove the entrance animation's 3D component on mobile */
+            .hero-preview-wrapper.visible {
+                transform: none !important;
+            }
+
+            .hero-preview-glass {
+                border-radius: 12px;
+                padding: 8px;
+            }
+
+            .preview-img {
+                border-radius: 6px;
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: cover;
+            }
+
+            /* --- 2. "Built for Builders" section --- */
+            .grid-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+            }
+
+            /* --- 3. Feature Rows ("Why Nexus") --- */
+            .feature-row,
+            .feature-row.reversed {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .feature-icon-box {
+                margin: 0 auto 1.25rem;
+            }
+
+            .feature-content h2 {
+                font-size: 1.75rem;
+                line-height: 1.25;
+                margin-bottom: 0.875rem;
+            }
+
+            .feature-content p {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            .feature-list {
+                align-items: center;
+                gap: 0.875rem;
+            }
+
+            .feature-list li {
+                font-size: 0.95rem;
+                justify-content: center;
+            }
+
+            /* Feature visuals: full width, no tilt, no cropping */
+            .feature-visual {
+                width: 100%;
+            }
+
+            .visual-card {
+                transform: none !important;
+                border-radius: 16px;
+                width: 100%;
+                max-width: 100%;
+                overflow: visible;
+                /* prevent image cropping */
+            }
+
+            .visual-card img {
+                width: 100%;
+                height: auto !important;
+                max-height: none !important;
+                display: block;
+                object-fit: contain;
+                border-radius: 16px;
+            }
+
+            /* Card glow overlay — keep it but don't crop the image */
+            .card-glow {
+                border-radius: 16px;
+            }
+
+            /* --- 4. "Everything you need" compact grid → 1 col --- */
+            .feature-grid-compact {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .feature-card-compact {
+                padding: 1.25rem;
+            }
+
+            /* --- 5. Section typography --- */
+            .section-title {
+                font-size: 1.85rem !important;
+                line-height: 1.2 !important;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            /* --- 6. Section padding --- */
+            .section-padding {
+                padding: 3.5rem 0;
+            }
+
+            .section-padding.container,
+            section.section-padding {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+
+            /* --- 7. "From Zero to One" inline flex steps --- */
+            /* Override inline style: flex items stack on mobile */
+            .how-it-works[style] {
+                flex-direction: column !important;
+                gap: 2rem !important;
+                padding: 2rem 0 0 !important;
+                align-items: stretch !important;
+            }
+
+            /* Each step — remove min/max width constraints */
+            .how-it-works[style]>div {
+                flex: unset !important;
+                min-width: unset !important;
+                max-width: 100% !important;
+                text-align: left;
+            }
+
+            .how-it-works[style]>div h3 {
+                font-size: 1.25rem !important;
+            }
+
+            .how-it-works[style]>div>div {
+                font-size: 3rem !important;
+                margin-bottom: -0.5rem !important;
+            }
+
+            /* --- 8. Logo strip --- */
+            .logo-strip {
+                padding: 3rem 0;
+            }
+
+            .logo-flex {
+                gap: 1.5rem !important;
+                flex-wrap: wrap;
+                justify-content: center !important;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            /* --- 9. CTA section --- */
+            .cta-section {
+                padding: 4rem 0;
+            }
+
+            .cta-headline {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+                word-break: break-word;
+            }
+
+            .cta-sub {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-section .btn-primary {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+                display: inline-block;
+                width: auto;
+                max-width: 280px;
+            }
+        }
+
+        /* ── Small Mobile: ≤ 480px ───────────────── */
+        @media (max-width: 480px) {
+
+            .hero-centered-section {
+                padding: 100px 0 50px;
+            }
+
+            .hero-glow {
+                width: 280px;
+                height: 280px;
+            }
+
+            .hero-content-centered {
+                padding: 0 1rem;
+            }
+
+            .hero-headline-large {
+                font-size: 2.1rem;
+                line-height: 1.15;
+                margin-bottom: 1rem;
+            }
+
+            .pill-badge {
+                font-size: 0.78rem;
+                padding: 5px 12px;
+                margin-bottom: 1.25rem;
+            }
+
+            .hero-subtext {
+                font-size: 0.95rem;
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-glass {
+                max-width: 100%;
+                padding: 0.875rem 1.25rem;
+                font-size: 0.95rem;
+            }
+
+            .feature-content h2 {
+                font-size: 1.55rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem !important;
+            }
+
+            .cta-headline {
+                font-size: 1.7rem !important;
+            }
+
+            .feature-grid-compact {
+                gap: 0.875rem;
+                margin-top: 1.5rem;
+            }
+
+            .feature-card-compact {
+                padding: 1.1rem;
+                border-radius: 12px;
+            }
+
+            .section-padding {
+                padding: 2.5rem 0;
+            }
+
+            .section-padding.container,
+            section.section-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .how-it-works[style]>div h3 {
+                font-size: 1.1rem !important;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .cta-section {
+                padding: 3rem 0;
+            }
+        }
+
+        /* ── Very Small Mobile: ≤ 360px ─────────── */
+        @media (max-width: 360px) {
+
+            .hero-centered-section {
+                padding: 90px 0 40px;
+            }
+
+            .hero-headline-large {
+                font-size: 1.85rem;
+            }
+
+            .hero-subtext {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.45rem !important;
+            }
+
+            .cta-headline {
+                font-size: 1.5rem !important;
+            }
+
+            .feature-content h2 {
+                font-size: 1.35rem;
+            }
+
+            .hero-content-centered {
+                padding: 0 0.875rem;
+            }
+
+            .section-padding.container,
+            section.section-padding {
+                padding-left: 0.875rem;
+                padding-right: 0.875rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marketing-layout">
+        <!-- Unified Header -->
+        <div id="main-header"></div>
+
+        <!-- Scripts -->
+        <script src="../../src/js/main.js"></script>
+        <script src="../../src/js/auth.js"></script>
+
+        <main>
+            <!-- 1. Hero Section -->
+            <section class="hero-centered-section">
+                <div class="hero-glow"></div>
+                <div class="container relative z-10">
+                    <div class="hero-content-centered">
+                        <div class="pill-badge">
+                            <span class="pulse-dot"></span>
+                            <span>For High-Growth Startups</span>
+                        </div>
+                        <h1 class="hero-headline-large">
+                            Build your vision.<br>
+                            <span class="text-gradient-primary">Automate the rest.</span>
+                        </h1>
+                        <p class="hero-subtext">
+                            The all-in-one infrastructure for founders who want to move fast.
+                            Deploy, scale, and secure your startup with zero devops overhead.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="../../auth/user/user-signup.html" class="btn-primary btn-lg">Create Free
+                                Account</a>
+                            <a href="contact.html" class="btn-glass btn-lg">Talk to Founders</a>
+                        </div>
+
+                        <!-- Hero Visual -->
+                        <div class="hero-preview-wrapper opacity-0">
+                            <div class="hero-preview-glass">
+                                <div class="preview-header">
+                                    <div class="window-controls">
+                                        <span class="control red"></span>
+                                        <span class="control yellow"></span>
+                                        <span class="control green"></span>
+                                    </div>
+                                    <div class="address-bar">nexus.dev/console</div>
+                                </div>
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop"
+                                    alt="Nexus Console" class="preview-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Who This Is For -->
+            <section class="section-padding" style="background: rgba(255,255,255,0.02);">
+                <div class="container text-center">
+                    <h2 class="section-title" style="font-size: 2.5rem;">Built for Builders</h2>
+                    <p class="section-subtitle">We power the next generation of digital companies.</p>
+
+                    <div class="grid-3" style="margin-top: 3rem; text-align: left;">
+                        <div class="feature-card">
+                            <i data-lucide="rocket"
+                                style="width: 32px; height: 32px; color: var(--accent); margin-bottom: 1rem;"></i>
+                            <h3>Startup Founders</h3>
+                            <p>Focus on product-market fit, not infrastructure headaches. Get from idea to MVP in days.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <i data-lucide="code-2"
+                                style="width: 32px; height: 32px; color: var(--primary); margin-bottom: 1rem;"></i>
+                            <h3>SaaS Teams</h3>
+                            <p>Scalable architecture that grows with your ARR. SOC2 compliance ready out of the box.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i data-lucide="globe"
+                                style="width: 32px; height: 32px; color: var(--secondary); margin-bottom: 1rem;"></i>
+                            <h3>Digital-First</h3>
+                            <p>Remote teams need modern tools. Collaboration and deployment synced worldwide.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Why Nexus (Value Props) -->
+            <section class="section-padding container">
+                <div class="feature-row">
+                    <div class="feature-content">
+                        <div class="feature-icon-box">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <h2>Velocity is your unfair advantage.</h2>
+                        <p>Stop wasting engineering hours on boilerplate. Nexus gives you a pre-configured stack
+                            optimized for speed.</p>
+                        <ul class="feature-list">
+                            <li><i data-lucide="check-circle"></i> Instant Deployments</li>
+                            <li><i data-lucide="check-circle"></i> Automated CI/CD pipelines</li>
+                            <li><i data-lucide="check-circle"></i> Zero-config environments</li>
+                        </ul>
+                    </div>
+                    <div class="feature-visual">
+                        <div class="visual-card">
+                            <div class="card-glow primary"></div>
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
+                                alt="Velocity">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-row reversed">
+                    <div class="feature-content">
+                        <div class="feature-icon-box secondary">
+                            <i data-lucide="shield"></i>
+                        </div>
+                        <h2>Enterprise security, Startup budget.</h2>
+                        <p>Don't let compliance slow you down. We bake security into every layer of your application.
+                        </p>
+                        <ul class="feature-list">
+                            <li><i data-lucide="check-circle"></i> Automated SOC2 Controls</li>
+                            <li><i data-lucide="check-circle"></i> DDOS Protection included</li>
+                            <li><i data-lucide="check-circle"></i> Role-based Access Control</li>
+                        </ul>
+                    </div>
+                    <div class="feature-visual">
+                        <div class="visual-card">
+                            <div class="card-glow secondary"></div>
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop"
+                                alt="Security">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. What We Help You Build (Compact Features) -->
+            <section class="section-padding container">
+                <div class="text-center">
+                    <h2 class="section-title">Everything you need to ship</h2>
+                    <p class="section-subtitle">A complete toolkit for the modern startup stack.</p>
+                </div>
+
+                <div class="feature-grid-compact">
+                    <!-- 1 -->
+                    <div class="feature-card-compact">
+                        <h3><i data-lucide="layers" style="width: 20px;"></i> Product Dev</h3>
+                        <p>End-to-end lifecycle management from spec to production.</p>
+                        <a href="services/details.html?service=product-dev" class="feature-link">Learn more →</a>
+                    </div>
+                    <!-- 2 -->
+                    <div class="feature-card-compact">
+                        <h3><i data-lucide="cpu" style="width: 20px;"></i> AI / Automation</h3>
+                        <p>Native LLM integration and workflow automation agents.</p>
+                        <a href="services/details.html?service=ai-automation" class="feature-link">Learn more →</a>
+                    </div>
+                    <!-- 3 -->
+                    <div class="feature-card-compact">
+                        <h3><i data-lucide="rocket" style="width: 20px;"></i> MVP Building</h3>
+                        <p>Rapid prototyping templates to validate ideas fast.</p>
+                        <a href="services/details.html?service=mvp-building" class="feature-link">Learn more →</a>
+                    </div>
+                    <!-- 4 -->
+                    <div class="feature-card-compact">
+                        <h3><i data-lucide="smartphone" style="width: 20px;"></i> Web & App</h3>
+                        <p>Cross-platform frameworks for mobile and web.</p>
+                        <a href="services/details.html?service=web-app" class="feature-link">Learn more →</a>
+                    </div>
+                    <!-- 5 -->
+                    <div class="feature-card-compact">
+                        <h3><i data-lucide="trending-up" style="width: 20px;"></i> Growth</h3>
+                        <p>Built-in analytics and marketing automation hooks.</p>
+                        <a href="services/details.html?service=growth" class="feature-link">Learn more →</a>
+                    </div>
+                    <!-- 6 -->
+                    <div class="feature-card-compact">
+                        <h3><i data-lucide="shield-check" style="width: 20px;"></i> Security</h3>
+                        <p>Compliance guardrails that scale with your team.</p>
+                        <a href="services/details.html?service=security" class="feature-link">Learn more →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. How It Works -->
+            <section class="section-padding"
+                style="background: rgba(255,255,255,0.02); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+                <div class="container text-center">
+                    <h2 class="section-title">From Zero to One</h2>
+
+                    <div class="how-it-works"
+                        style="padding: 4rem 0 0; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                            <div
+                                style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.1); margin-bottom: -1rem;">
+                                01</div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Import</h3>
+                            <p style="color: var(--text-muted);">Connect your Git provider. We auto-detect your
+                                framework and config.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                            <div
+                                style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.1); margin-bottom: -1rem;">
+                                02</div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Build</h3>
+                            <p style="color: var(--text-muted);">Our build system optimizes assets and runs tests in
+                                parallel containers.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                            <div
+                                style="font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.1); margin-bottom: -1rem;">
+                                03</div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Scale</h3>
+                            <p style="color: var(--text-muted);">Instant global availability. Scale to millions of
+                                requests automatically.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Startup Trust -->
+            <section class="logo-strip" style="background: transparent; border: none; padding-top: 6rem;">
+                <div class="container text-center">
+                    <p class="trusted-by">Powering the next unicorns</p>
+                    <div class="logo-flex" style="opacity: 0.5; justify-content: center; gap: 4rem;">
+                        <span class="logo-text">ACME AI</span>
+                        <span class="logo-text">KINETIC</span>
+                        <span class="logo-text">BOLT</span>
+                        <span class="logo-text">NEXA</span>
+                        <span class="logo-text">QUANTUM</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Final CTA -->
+            <section class="cta-section" style="padding-top: 4rem;">
+                <div class="container text-center">
+                    <h2 class="cta-headline">Build your startup with Nexus</h2>
+                    <p class="cta-sub">Join 10,000+ founders shipping faster today.</p>
+                    <a href="../../auth/user/user-signup.html" class="btn-primary btn-lg">Start Building Free</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Unified Footer -->
+        <div id="main-footer"></div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.hero-preview-wrapper').classList.add('visible');
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Debug Test</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="src/css/base/tokens.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background: #0f172a;
+            color: white;
+        }
+
+        .debug-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .debug-section h3 {
+            margin-top: 0;
+            color: #6366f1;
+        }
+
+        button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        button:hover {
+            background: #4f46e5;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .success {
+            color: #10b981;
+        }
+
+        .error {
+            color: #ef4444;
+        }
+
+        .warning {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔧 Dashboard Debug Tool</h1>
+
+    <div class="debug-section">
+        <h3>1. Authentication Status</h3>
+        <div id="authStatus">Checking...</div>
+        <button onclick="checkAuth()">Refresh Auth Status</button>
+        <button onclick="clearAuth()">Clear Auth</button>
+    </div>
+
+    <div class="debug-section">
+        <h3>2. LocalStorage Data</h3>
+        <div id="storageData">Loading...</div>
+        <button onclick="showStorage()">Show All Data</button>
+        <button onclick="clearAllData()">Clear All Data</button>
+    </div>
+
+    <div class="debug-section">
+        <h3>3. Quick Login</h3>
+        <button onclick="quickLogin('user')">Login as User</button>
+        <button onclick="quickLogin('admin')">Login as Admin</button>
+        <div id="loginResult"></div>
+    </div>
+
+    <div class="debug-section">
+        <h3>4. Test Data</h3>
+        <button onclick="addTestProjects()">Add Test Projects</button>
+        <button onclick="addTestMessages()">Add Test Messages</button>
+        <button onclick="addTestUsers()">Add Test Users</button>
+        <div id="testDataResult"></div>
+    </div>
+
+    <div class="debug-section">
+        <h3>5. Navigation</h3>
+        <button onclick="goToDashboard('user')">Go to User Dashboard</button>
+        <button onclick="goToDashboard('admin')">Go to Admin Dashboard</button>
+        <button onclick="location.href='index.html'">Go to Home</button>
+    </div>
+
+    <div class="debug-section">
+        <h3>6. Console Logs</h3>
+        <div id="consoleLogs" style="max-height: 300px; overflow-y: auto;"></div>
+    </div>
+
+    <script src="src/js/auth.js"></script>
+    <script>
+        // Capture console logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        const logs = [];
+
+        function addLog(type, ...args) {
+            const message = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
+            logs.push({ type, message, time: new Date().toLocaleTimeString() });
+            updateConsoleLogs();
+        }
+
+        console.log = function (...args) {
+            originalLog.apply(console, args);
+            addLog('log', ...args);
+        };
+
+        console.error = function (...args) {
+            originalError.apply(console, args);
+            addLog('error', ...args);
+        };
+
+        console.warn = function (...args) {
+            originalWarn.apply(console, args);
+            addLog('warn', ...args);
+        };
+
+        function updateConsoleLogs() {
+            const container = document.getElementById('consoleLogs');
+            container.innerHTML = logs.slice(-20).reverse().map(log => {
+                const className = log.type === 'error' ? 'error' : log.type === 'warn' ? 'warning' : '';
+                return `<div class="${className}">[${log.time}] ${log.message}</div>`;
+            }).join('');
+        }
+
+        function checkAuth() {
+            const status = document.getElementById('authStatus');
+            if (typeof Auth === 'undefined') {
+                status.innerHTML = '<span class="error">❌ Auth system not loaded!</span>';
+                return;
+            }
+
+            status.innerHTML = `
+                <div><strong>Status:</strong> <span class="${Auth.state.isLoggedIn ? 'success' : 'warning'}">${Auth.state.isLoggedIn ? '✅ Logged In' : '⚠️ Not Logged In'}</span></div>
+                <div><strong>Role:</strong> ${Auth.state.role || 'N/A'}</div>
+                <div><strong>User Data:</strong></div>
+                <pre>${JSON.stringify(Auth.state.data, null, 2)}</pre>
+            `;
+        }
+
+        function showStorage() {
+            const container = document.getElementById('storageData');
+            const data = {
+                auth: localStorage.getItem('nexus_auth'),
+                users: localStorage.getItem('nexus_users'),
+                projects: localStorage.getItem('nexus_projects'),
+                messages: localStorage.getItem('nexus_messages')
+            };
+
+            container.innerHTML = Object.entries(data).map(([key, value]) => {
+                return `<div><strong>${key}:</strong><pre>${value || 'null'}</pre></div>`;
+            }).join('');
+        }
+
+        function clearAuth() {
+            localStorage.removeItem('nexus_auth');
+            if (typeof Auth !== 'undefined') {
+                Auth.state = { isLoggedIn: false, role: null, data: null };
+            }
+            alert('Auth cleared!');
+            checkAuth();
+        }
+
+        function clearAllData() {
+            if (confirm('Clear ALL localStorage data?')) {
+                localStorage.clear();
+                alert('All data cleared!');
+                showStorage();
+                checkAuth();
+            }
+        }
+
+        function quickLogin(role) {
+            const email = role === 'admin' ? 'admin@nexus.io' : 'user@example.com';
+            const result = document.getElementById('loginResult');
+
+            if (typeof Auth === 'undefined') {
+                result.innerHTML = '<span class="error">Auth system not loaded!</span>';
+                return;
+            }
+
+            Auth.login(email, 'password123');
+            result.innerHTML = `<span class="success">✅ Logged in as ${role}!</span>`;
+            setTimeout(checkAuth, 100);
+        }
+
+        function addTestProjects() {
+            const projects = [
+                { id: 1, name: 'Nexus Core API', status: 'Healthy', lastUpdated: '2 mins ago', owner: 'system' },
+                { id: 2, name: 'Orbit Dashboard', status: 'Healthy', lastUpdated: '1 hour ago', owner: 'system' },
+                { id: 3, name: 'User Portal', status: 'Healthy', lastUpdated: '5 mins ago', owner: 'user@example.com' }
+            ];
+            localStorage.setItem('nexus_projects', JSON.stringify(projects));
+            document.getElementById('testDataResult').innerHTML = '<span class="success">✅ Test projects added!</span>';
+        }
+
+        function addTestMessages() {
+            const messages = [
+                {
+                    id: 1,
+                    name: 'John Doe',
+                    email: 'john@example.com',
+                    subject: 'Sales Inquiry',
+                    message: 'I would like to know more about your enterprise plan.',
+                    timestamp: new Date().toLocaleString()
+                },
+                {
+                    id: 2,
+                    name: 'Jane Smith',
+                    email: 'jane@company.com',
+                    subject: 'Technical Support',
+                    message: 'Having issues with API authentication.',
+                    timestamp: new Date().toLocaleString()
+                }
+            ];
+            localStorage.setItem('nexus_messages', JSON.stringify(messages));
+            document.getElementById('testDataResult').innerHTML = '<span class="success">✅ Test messages added!</span>';
+        }
+
+        function addTestUsers() {
+            const users = [
+                {
+                    email: 'user@example.com',
+                    name: 'User',
+                    lastLogin: new Date().toLocaleString(),
+                    status: 'Online'
+                },
+                {
+                    email: 'admin@nexus.io',
+                    name: 'Admin',
+                    lastLogin: new Date().toLocaleString(),
+                    status: 'Online'
+                },
+                {
+                    email: 'test@test.com',
+                    name: 'Test',
+                    lastLogin: '2 hours ago',
+                    status: 'Offline'
+                }
+            ];
+            localStorage.setItem('nexus_users', JSON.stringify(users));
+            document.getElementById('testDataResult').innerHTML = '<span class="success">✅ Test users added!</span>';
+        }
+
+        function goToDashboard(role) {
+            window.location.href = role === 'admin' ? 'dashboard/admin/index.html' : 'dashboard/user/index.html';
+        }
+
+        // Initialize
+        setTimeout(() => {
+            checkAuth();
+            showStorage();
+        }, 100);
+    </script>
+</body>
+
+</html>
